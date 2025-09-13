@@ -31,8 +31,8 @@ function cachedFetch(url, opts = {}, ttlMs = 60_000) {
 }
 
 /* =================== Rutas locales GeoJSON =================== */
-const URL_DEPTOS   = "geo/departamentos.geojson";
-const URL_CIUDADES = "geo/ciudades.geojson";
+const URL_DEPTOS   = `${api}/geo/departamentos.geojson`;
+const URL_CIUDADES = `${api}/geo/ciudades.geojson`;
 
 /* =================== Helpers base =================== */
 const filtrosKeys = ["departamento", "ciudad", "macrocategoria", "categoria", "subcategoria", "marca"];

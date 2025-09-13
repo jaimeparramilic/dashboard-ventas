@@ -17,8 +17,15 @@ const PORT = process.env.PORT || 8080;
 app.use(cors());
 app.use(express.json());
 
-// 👉 Servir frontend (importante: antes de app.get('/'))
-app.use(express.static(path.join(__dirname, 'public')));
+const staticDir = path.join(__dirname, 'public');
+
+app.use(express.static(staticDir, {
+  setHeaders: (res, filePath) => {
+    if (filePath.endsWith('.geojson')) {
+      res.setHeader('Content-Type', 'application/json; charset=utf-8');
+    }
+  }
+}));
 
 // Rutas API oficiales
 app.use('/ventas', ventasRouter);
@@ -34,8 +41,9 @@ app.use('/filters', filtrosRouter);         // alias de /filtros
 app.use('/timeseries', seriesRouter);       // alias de /ventas/series
 
 // Ruta base
-app.get('/', (req, res) => res.send('API de ventas operativa 🚀'));
+app.get('/', (req, res) => res.sendFile(path.join(staticDir, 'index.html')));
 
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
+
