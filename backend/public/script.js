@@ -44,8 +44,10 @@ async function cachedFetch(url, opts = {}, ttlMs = 60_000) {
 
 
 /* =================== Rutas locales GeoJSON =================== */
-const URL_DEPTOS   = "https://storage.googleapis.com/VENTAS-GEO-TU_PROJECT_ID/departamentos.geojson";
-const URL_CIUDADES = "https://storage.googleapis.com/VENTAS-GEO-TU_PROJECT_ID/ciudades.geojson";
+// backend/public/script.js
+const URL_DEPTOS   = "https://storage.googleapis.com/ventas-geo-bubbly-vine-471620-h1/departamentos.geojson";
+const URL_CIUDADES = "https://storage.googleapis.com/ventas-geo-bubbly-vine-471620-h1/ciudades.geojson";
+
 
 /* =================== Helpers base =================== */
 const filtrosKeys = ["departamento", "ciudad", "macrocategoria", "categoria", "subcategoria", "marca"];
