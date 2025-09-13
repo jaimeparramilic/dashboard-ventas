@@ -1,0 +1,137 @@
+ciudad,departamento,ciudad_norm,depto_norm,status,geo_shapeName,geo_shapeID
+Abejorral,Antioquia,abejorral,antioquia,unique_match_by_city,Abejorral,7082276B70847845969134
+Apartado,Antioquia,apartado,antioquia,unique_match_by_city,Apartadó,7082276B99397100908240
+Armenia,Antioquia,armenia,antioquia,ambiguous_2,,
+Barbosa,Antioquia,barbosa,antioquia,ambiguous_2,,
+Bello,Antioquia,bello,antioquia,unique_match_by_city,Bello,7082276B79272217078231
+Caldas,Antioquia,caldas,antioquia,ambiguous_2,,
+Canasgordas,Antioquia,canasgordas,antioquia,unique_match_by_city,Cañasgordas,7082276B88320735192302
+Carepa,Antioquia,carepa,antioquia,unique_match_by_city,Carepa,7082276B33450375559430
+Caucasia,Antioquia,caucasia,antioquia,unique_match_by_city,Caucasia,7082276B49158804939428
+Cocorna,Antioquia,cocorna,antioquia,unique_match_by_city,Cocorná,7082276B66928007387737
+Copacabana,Antioquia,copacabana,antioquia,unique_match_by_city,Copacabana,7082276B76500841891057
+El Carmen De Viboral,Antioquia,el carmen de viboral,antioquia,unique_match_by_city,El Carmen De Viboral,7082276B81226439433985
+El Santuario,Antioquia,el santuario,antioquia,no_match,,
+Envigado,Antioquia,envigado,antioquia,unique_match_by_city,Envigado,7082276B11340902680280
+Fredonia,Antioquia,fredonia,antioquia,unique_match_by_city,Fredonia,7082276B62659196933194
+Girardota,Antioquia,girardota,antioquia,unique_match_by_city,Girardota,7082276B6763900439395
+Granada,Antioquia,granada,antioquia,ambiguous_3,,
+Guarne,Antioquia,guarne,antioquia,unique_match_by_city,Guarne,7082276B92581613564352
+Itagui,Antioquia,itagui,antioquia,unique_match_by_city,Itagüí,7082276B40156907925674
+La Ceja,Antioquia,la ceja,antioquia,unique_match_by_city,La Ceja,7082276B13386245967874
+La Estrella,Antioquia,la estrella,antioquia,unique_match_by_city,La Estrella,7082276B46086591209782
+Marinilla,Antioquia,marinilla,antioquia,unique_match_by_city,Marinilla,7082276B39269491534376
+Medellin,Antioquia,medellin,antioquia,unique_match_by_city,Medellín,7082276B76690106408580
+Mutata,Antioquia,mutata,antioquia,unique_match_by_city,Mutatá,7082276B10402397965480
+Penol,Antioquia,penol,antioquia,unique_match_by_city,Peñol,7082276B19280887364863
+Rionegro,Antioquia,rionegro,antioquia,ambiguous_2,,
+Sabaneta,Antioquia,sabaneta,antioquia,unique_match_by_city,Sabaneta,7082276B45005796223132
+San Pedro De Uraba,Antioquia,san pedro de uraba,antioquia,unique_match_by_city,San Pedro De Uraba,7082276B58704209579915
+Segovia,Antioquia,segovia,antioquia,unique_match_by_city,Segovia,7082276B19668764793541
+Tamesis,Antioquia,tamesis,antioquia,unique_match_by_city,Támesis,7082276B51026070835233
+Yarumal,Antioquia,yarumal,antioquia,unique_match_by_city,Yarumal,7082276B85908118350563
+Yondo,Antioquia,yondo,antioquia,no_match,,
+Baranoa,Atlantico,baranoa,atlantico,unique_match_by_city,Baranoa,7082276B40558284352114
+Barranquilla,Atlantico,barranquilla,atlantico,no_match,,
+Galapa,Atlantico,galapa,atlantico,unique_match_by_city,Galapa,7082276B48939635057029
+Malambo,Atlantico,malambo,atlantico,unique_match_by_city,Malambo,7082276B4213676035156
+Palmar De Varela,Atlantico,palmar de varela,atlantico,unique_match_by_city,Palmar De Varela,7082276B56269884010814
+Polonuevo,Atlantico,polonuevo,atlantico,unique_match_by_city,Polonuevo,7082276B89878493029367
+Ponedera,Atlantico,ponedera,atlantico,unique_match_by_city,Ponedera,7082276B66723119854889
+Puerto Colombia,Atlantico,puerto colombia,atlantico,ambiguous_2,,
+Santo Tomas,Atlantico,santo tomas,atlantico,unique_match_by_city,Santo Tomás,7082276B26662960638408
+Soledad,Atlantico,soledad,atlantico,unique_match_by_city,Soledad,7082276B16795204487945
+Suan,Atlantico,suan,atlantico,unique_match_by_city,Suan,7082276B14596703895103
+Cartagena,Bolivar,cartagena,bolivar,unique_match_by_city,Cartagena De Indias,7082276B69747109400917
+Duitama,Boyaca,duitama,boyaca,unique_match_by_city,Duitama,7082276B48386151421369
+Sogamoso,Boyaca,sogamoso,boyaca,unique_match_by_city,Sogamoso,7082276B30941570566225
+Tunja,Boyaca,tunja,boyaca,unique_match_by_city,Tunja,7082276B30096704247804
+Manizales,Caldas,manizales,caldas,unique_match_by_city,Manizales,7082276B74376648695935
+Florencia,Caqueta,florencia,caqueta,ambiguous_2,,
+Yopal,Casanare,yopal,casanare,unique_match_by_city,Yopal,7082276B99207474078135
+Aguachica,Cesar,aguachica,cesar,unique_match_by_city,Aguachica,7082276B33891550919089
+Monteria,Cordoba,monteria,cordoba,unique_match_by_city,Montería,7082276B30491480162439
+Anapoima,Cundinamarca,anapoima,cundinamarca,unique_match_by_city,Anapoima,7082276B58765294535219
+Bogota D.C.,Cundinamarca,bogota,cundinamarca,unique_match_by_city,"Bogotá, D.c.",7082276B37057214617227
+Cajica,Cundinamarca,cajica,cundinamarca,unique_match_by_city,Cajicá,7082276B54625644795372
+Chia,Cundinamarca,chia,cundinamarca,unique_match_by_city,Chia,7082276B36074400968325
+Cogua,Cundinamarca,cogua,cundinamarca,unique_match_by_city,Cogua,7082276B60465848550372
+Cota,Cundinamarca,cota,cundinamarca,unique_match_by_city,Cota,7082276B44065985457815
+El Colegio,Cundinamarca,el colegio,cundinamarca,unique_match_by_city,El Colegio,7082276B60890282056473
+El Rosal,Cundinamarca,el rosal,cundinamarca,unique_match_by_city,El Rosal,7082276B35688334029965
+Facatativa,Cundinamarca,facatativa,cundinamarca,unique_match_by_city,Facatativá,7082276B42545892213611
+Funza,Cundinamarca,funza,cundinamarca,unique_match_by_city,Funza,7082276B8627668413751
+Fusagasuga,Cundinamarca,fusagasuga,cundinamarca,unique_match_by_city,Fusagasugá,7082276B51871988442122
+Gacheta,Cundinamarca,gacheta,cundinamarca,unique_match_by_city,Gachetá,7082276B90187187212426
+Girardot,Cundinamarca,girardot,cundinamarca,unique_match_by_city,Girardot,7082276B44734955645531
+Guaduas,Cundinamarca,guaduas,cundinamarca,unique_match_by_city,Guaduas,7082276B20706046366755
+Guasca,Cundinamarca,guasca,cundinamarca,unique_match_by_city,Guasca,7082276B88398605204412
+La Calera,Cundinamarca,la calera,cundinamarca,unique_match_by_city,La Calera,7082276B16624881870265
+La Mesa,Cundinamarca,la mesa,cundinamarca,unique_match_by_city,La Mesa,7082276B41572660322682
+La Vega,Cundinamarca,la vega,cundinamarca,ambiguous_2,,
+Madrid,Cundinamarca,madrid,cundinamarca,unique_match_by_city,Madrid,7082276B83937578345103
+Mosquera,Cundinamarca,mosquera,cundinamarca,ambiguous_2,,
+Pacho,Cundinamarca,pacho,cundinamarca,unique_match_by_city,Pacho,7082276B92865884587662
+Ricaurte,Cundinamarca,ricaurte,cundinamarca,ambiguous_2,,
+San Juan De Rio Seco,Cundinamarca,san juan de rio seco,cundinamarca,unique_match_by_city,San Juan De Rio Seco,7082276B56983029747572
+Sibate,Cundinamarca,sibate,cundinamarca,unique_match_by_city,Sibaté,7082276B14129572791047
+Silvania,Cundinamarca,silvania,cundinamarca,unique_match_by_city,Silvania,7082276B74452941535479
+Soacha,Cundinamarca,soacha,cundinamarca,unique_match_by_city,Soacha,7082276B50901736205159
+Sopo,Cundinamarca,sopo,cundinamarca,unique_match_by_city,Sopo,7082276B26138055431911
+Tabio,Cundinamarca,tabio,cundinamarca,unique_match_by_city,Tabio,7082276B43625125336018
+Tenjo,Cundinamarca,tenjo,cundinamarca,unique_match_by_city,Tenjo,7082276B86152202895144
+Tocancipa,Cundinamarca,tocancipa,cundinamarca,unique_match_by_city,Tocancipá,7082276B10728251723000
+Villa De San Diego De Ubate,Cundinamarca,villa de san diego de ubate,cundinamarca,no_match,,
+Villeta,Cundinamarca,villeta,cundinamarca,unique_match_by_city,Villeta,7082276B61730001772347
+Viota,Cundinamarca,viota,cundinamarca,unique_match_by_city,Viotá,7082276B31089834197292
+Zipaquira,Cundinamarca,zipaquira,cundinamarca,unique_match_by_city,Zipaquira,7082276B49275138212053
+Garzon,Huila,garzon,huila,unique_match_by_city,Garzón,7082276B84511387855625
+Neiva,Huila,neiva,huila,unique_match_by_city,Neiva,7082276B10918286355
+Pitalito,Huila,pitalito,huila,unique_match_by_city,Pitalito,7082276B60713931967074
+San Agustin,Huila,san agustin,huila,unique_match_by_city,San Agustín,7082276B97741553625130
+Santa Marta,Magdalena,santa marta,magdalena,unique_match_by_city,Santa Marta,7082276B2481053474358
+Acacias,Meta,acacias,meta,unique_match_by_city,Acacías,7082276B9890611779462
+Villavicencio,Meta,villavicencio,meta,unique_match_by_city,Villavicencio,7082276B6983949832660
+Pasto,Narino,pasto,narino,unique_match_by_city,Pasto,7082276B828212266438
+San Andres De Tumaco,Narino,san andres de tumaco,narino,no_match,,
+Armenia,Quindio,armenia,quindio,ambiguous_2,,
+Belen De Umbria,Risaralda,belen de umbria,risaralda,unique_match_by_city,Belén De Umbría,7082276B92483962355634
+Dosquebradas,Risaralda,dosquebradas,risaralda,unique_match_by_city,Dosquebradas,7082276B1259376417396
+Pereira,Risaralda,pereira,risaralda,unique_match_by_city,Pereira,7082276B56557214099866
+Santa Rosa De Cabal,Risaralda,santa rosa de cabal,risaralda,unique_match_by_city,Santa Rosa De Cabal,7082276B83235998403741
+Barrancabermeja,Santander,barrancabermeja,santander,unique_match_by_city,Barrancabermeja,7082276B38592891469597
+Bucaramanga,Santander,bucaramanga,santander,unique_match_by_city,Bucaramanga,7082276B15400349523065
+Floridablanca,Santander,floridablanca,santander,unique_match_by_city,Floridablanca,7082276B34435529925249
+Giron,Santander,giron,santander,unique_match_by_city,Girón,7082276B75603088073292
+Guadalupe,Santander,guadalupe,santander,ambiguous_3,,
+Lebrija,Santander,lebrija,santander,unique_match_by_city,Lebríja,7082276B58843088778995
+Piedecuesta,Santander,piedecuesta,santander,unique_match_by_city,Piedecuesta,7082276B40020724861964
+Rionegro,Santander,rionegro,santander,ambiguous_2,,
+Sabana De Torres,Santander,sabana de torres,santander,unique_match_by_city,Sabana De Torres,7082276B5396414457031
+San Gil,Santander,san gil,santander,unique_match_by_city,San Gil,7082276B87231818219004
+San Vicente De Chucuri,Santander,san vicente de chucuri,santander,unique_match_by_city,San Vicente De Chucuri,7082276B82845110848853
+Socorro,Santander,socorro,santander,unique_match_by_city,Socorro,7082276B29346978372960
+Espinal,Tolima,espinal,tolima,unique_match_by_city,Espinal,7082276B91766477501685
+Ibague,Tolima,ibague,tolima,unique_match_by_city,Ibagué,7082276B61216577882817
+Andalucia,Valle Del Cauca,andalucia,valle del cauca,unique_match_by_city,Andalucía,7082276B16460113853729
+Buenaventura,Valle Del Cauca,buenaventura,valle del cauca,unique_match_by_city,Buenaventura,7082276B82326475607220
+Bugalagrande,Valle Del Cauca,bugalagrande,valle del cauca,unique_match_by_city,Bugalagrande,7082276B64894766259605
+Caicedonia,Valle Del Cauca,caicedonia,valle del cauca,unique_match_by_city,Caicedonia,7082276B66968724645536
+Cali,Valle Del Cauca,cali,valle del cauca,unique_match_by_city,Cali,7082276B61798378462298
+Candelaria,Valle Del Cauca,candelaria,valle del cauca,ambiguous_2,,
+Cartago,Valle Del Cauca,cartago,valle del cauca,unique_match_by_city,Cartago,7082276B65356767722018
+Dagua,Valle Del Cauca,dagua,valle del cauca,unique_match_by_city,Dagua,7082276B1809548619611
+El Cerrito,Valle Del Cauca,el cerrito,valle del cauca,unique_match_by_city,El Cerrito,7082276B46612550724020
+Florida,Valle Del Cauca,florida,valle del cauca,unique_match_by_city,Florida,7082276B72857503251060
+Ginebra,Valle Del Cauca,ginebra,valle del cauca,unique_match_by_city,Ginebra,7082276B86237155674580
+Guadalajara De Buga,Valle Del Cauca,guadalajara de buga,valle del cauca,no_match,,
+Jamundi,Valle Del Cauca,jamundi,valle del cauca,unique_match_by_city,Jamundí,7082276B34643153596427
+La Union,Valle Del Cauca,la union,valle del cauca,ambiguous_4,,
+Palmira,Valle Del Cauca,palmira,valle del cauca,unique_match_by_city,Palmira,7082276B49686436836196
+Pradera,Valle Del Cauca,pradera,valle del cauca,unique_match_by_city,Pradera,7082276B33285563238152
+Sevilla,Valle Del Cauca,sevilla,valle del cauca,unique_match_by_city,Sevilla,7082276B53054479905694
+Trujillo,Valle Del Cauca,trujillo,valle del cauca,unique_match_by_city,Trujillo,7082276B51151260265899
+Tulua,Valle Del Cauca,tulua,valle del cauca,unique_match_by_city,Tuluá,7082276B54316712133185
+Vijes,Valle Del Cauca,vijes,valle del cauca,unique_match_by_city,Vijes,7082276B51677864129735
+Yumbo,Valle Del Cauca,yumbo,valle del cauca,unique_match_by_city,Yumbo,7082276B37421860048311
+Zarzal,Valle Del Cauca,zarzal,valle del cauca,unique_match_by_city,Zarzal,7082276B55716898367144
