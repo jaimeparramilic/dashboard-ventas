@@ -6,10 +6,10 @@ substitutions:
 
 steps:
   - name: "gcr.io/cloud-builders/docker"
-    args: ["build","-t","${_IMAGE}:$SHORT_SHA","backend"]
+    args: ["build", "-f", "backend/Dockerfile", "-t", "${_IMAGE}:$SHORT_SHA", "backend"]
 
   - name: "gcr.io/cloud-builders/docker"
-    args: ["push","${_IMAGE}:$SHORT_SHA"]
+    args: ["push", "${_IMAGE}:$SHORT_SHA"]
 
   - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
     entrypoint: gcloud
