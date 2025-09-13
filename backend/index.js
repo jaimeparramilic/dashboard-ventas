@@ -42,6 +42,7 @@ app.use('/timeseries', seriesRouter);       // alias de /ventas/series
 
 // Ruta base
 app.get('/', (req, res) => res.sendFile(path.join(staticDir, 'index.html')));
+app.get('/health', (req, res) => res.status(200).send('ok'));
 
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en http://localhost:${PORT}`);

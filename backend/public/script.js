@@ -15,20 +15,33 @@ const loaders = { kpis: null, series: null, mapa: null };
 /* Cache simple con TTL */
 const cache = new Map();
 const cacheKey = (url, body) => (body ? `${url}|${JSON.stringify(body)}` : url);
-function cachedFetch(url, opts = {}, ttlMs = 60_000) {
+async function cachedFetch(url, opts = {}, ttlMs = 60_000) {
   const key = cacheKey(url, opts.body);
   const now = Date.now();
   const entry = cache.get(key);
   if (entry && (now - entry.t) < ttlMs) {
-    return Promise.resolve(new Response(new Blob([entry.payload]), { status: 200 }));
+    return new Response(new Blob([entry.payload]), { status: 200 });
   }
-  return fetch(url, opts).then(async (res) => {
-    if (!res.ok) return res;
-    const text = await res.clone().text();
-    cache.set(key, { t: now, payload: text });
-    return new Response(new Blob([text]), { status: 200 });
-  });
+  const sleep = (ms) => new Promise(r => setTimeout(r, ms));
+  let lastErr;
+  for (let i = 0; i < 3; i++) {
+    try {
+      const res = await fetch(url, opts);
+      if (!res.ok) {
+        const txt = await res.text().catch(() => `HTTP ${res.status}`);
+        throw new Error(`HTTP ${res.status} en ${url} — ${txt.slice(0, 120)}...`);
+      }
+      const text = await res.clone().text();
+      cache.set(key, { t: now, payload: text });
+      return new Response(new Blob([text]), { status: 200 });
+    } catch (e) {
+      lastErr = e;
+      if (i < 2) await sleep(300 * (i + 1)); // backoff: 300ms, 600ms
+    }
+  }
+  throw lastErr;
 }
+
 
 /* =================== Rutas locales GeoJSON =================== */
 const URL_DEPTOS   = `${api}/geo/departamentos.geojson`;
@@ -396,10 +409,8 @@ async function renderCoropletas() {
     const filtros = getFiltros();
     const nivel = window.nivelMapa || (filtros.ciudad ? "ciudad" : "departamento");
 
-    const [_, agregados] = await Promise.all([
-      cargarGeoJSON(),
-      fetchAggregadosPorNivel(nivel, signal)
-    ]);
+    await cargarGeoJSON();
+    const agregados = await fetchAggregadosPorNivel(nivel, signal);
     loaders.mapa.setText("Calculando ventas…");
 
     const valores = new Map();
