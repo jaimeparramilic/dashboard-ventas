@@ -2,6 +2,7 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
+const compression = require('compression');
 
 // Routers
 const ventasRouter = require('./routes/ventas');
@@ -20,6 +21,8 @@ const PORT = process.env.PORT || 8080;
 
 app.use(cors());
 app.use(express.json());
+
+app.use(compression());
 
 // expone el loader a todos los routers vía app.locals
 app.locals.loadData = loadOnce;
