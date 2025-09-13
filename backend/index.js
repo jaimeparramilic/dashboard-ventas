@@ -3,13 +3,17 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 
+// Routers
 const ventasRouter = require('./routes/ventas');
 const filtrosRouter = require('./routes/filtros');
 const agregadasRouter = require('./routes/ventas_agregadas');
 const seriesRouter = require('./routes/ventas_series');
 const kpisRouter = require('./routes/kpis');
 const exportRouter = require('./routes/export');
-const mapaRouter = require('./routes/ventas_mapa'); // NUEVO
+const mapaRouter = require('./routes/ventas_mapa');
+
+// Loader compartido (cachea el CSV en memoria)
+const { loadOnce } = require('./data/loader');
 
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -17,8 +21,11 @@ const PORT = process.env.PORT || 8080;
 app.use(cors());
 app.use(express.json());
 
-const staticDir = path.join(__dirname, 'public');
+// expone el loader a todos los routers vía app.locals
+app.locals.loadData = loadOnce;
 
+// static del frontend
+const staticDir = path.join(__dirname, 'public');
 app.use(express.static(staticDir, {
   setHeaders: (res, filePath) => {
     if (filePath.endsWith('.geojson')) {
@@ -27,24 +34,25 @@ app.use(express.static(staticDir, {
   }
 }));
 
-// Rutas API oficiales
+// Rutas API
 app.use('/ventas', ventasRouter);
 app.use('/filtros', filtrosRouter);
 app.use('/ventas/agregadas', agregadasRouter);
 app.use('/ventas/series', seriesRouter);
 app.use('/kpis', kpisRouter);
 app.use('/export', exportRouter);
-app.use('/ventas/mapa', mapaRouter); // NUEVO
+app.use('/ventas/mapa', mapaRouter);
 
-// 🧩 Alias para compatibilidad
-app.use('/filters', filtrosRouter);         // alias de /filtros
-app.use('/timeseries', seriesRouter);       // alias de /ventas/series
+// Alias
+app.use('/filters', filtrosRouter);
+app.use('/timeseries', seriesRouter);
 
-// Ruta base
-app.get('/', (req, res) => res.sendFile(path.join(staticDir, 'index.html')));
-app.get('/health', (req, res) => res.status(200).send('ok'));
+// Health (útil para warm-up y checks)
+app.get('/health', (_req, res) => res.status(200).send('ok'));
+
+// Home: sirve el index del frontend
+app.get('/', (_req, res) => res.sendFile(path.join(staticDir, 'index.html')));
 
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
-
