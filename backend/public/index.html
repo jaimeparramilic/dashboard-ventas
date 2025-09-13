@@ -74,7 +74,9 @@
     .leaflet-bottom.leaflet-right{ right:14px; bottom:14px; }
   </style>
 </head>
+
 <body>
+  
   <!-- TOP BAR -->
   <header class="topbar">
     <div class="container">
@@ -224,5 +226,10 @@
       }
     })();
   </script>
+  <script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js').catch(console.error);
+  }
+</script>
 </body>
 </html>

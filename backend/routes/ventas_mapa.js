@@ -80,16 +80,49 @@ const OFFICIAL = {
   bogotaDeptOfficial: 'Bogotá D.C.',
   bogotaCityOfficial: 'Bogotá D.C.',
 };
+// Cache simple en memoria para agregados del mapa
+const MAPA_CACHE = new Map();
+const MAPA_TTL = 5 * 60 * 1000; // 5 minutos
+
+function cacheKeyFromQuery(q) {
+  const allow = ['group_by','departamento','ciudad','macrocategoria','categoria','subcategoria','segmento','marca'];
+  const obj = {};
+  for (const k of allow) if (q[k]) obj[k] = String(q[k]);
+  return 'mapa:' + JSON.stringify(obj);
+}
 
 /* --------------------------- Ruta --------------------------- */
 router.get('/', async (req, res) => {
   try {
-    const rows = await req.app.locals.loadData(); // cache en memoria del CSV
-    const groupBy = String(req.query.group_by || '').toLowerCase(); // 'departamento' | 'ciudad' | ''
+    // 1) Intenta cargar índices oficiales; si no existen, no rompas.
+    let OFFICIAL = null;
+    try { OFFICIAL = loadGeoOnce(); } catch (_) { OFFICIAL = null; }
+
+    // 2) Normaliza el modo de agregación
+    const groupByRaw = String(req.query.group_by || '').toLowerCase();
+    const groupBy = (groupByRaw === 'departamento') ? 'departamento' : 'ciudad';
+
+    // 3) Caché de respuesta (si lo definiste arriba del archivo)
+    try {
+      if (typeof cacheKeyFromQuery === 'function' && typeof MAPA_CACHE !== 'undefined') {
+        const cacheKey = cacheKeyFromQuery(req.query);
+        const hit = MAPA_CACHE.get(cacheKey);
+        if (hit && (Date.now() - hit.t) < MAPA_TTL) return res.json(hit.data);
+      }
+    } catch (e) {
+      console.warn('[ventas_mapa] cache read warn:', e?.message || e);
+    }
+
+    // 4) Datos (usa tu loader cacheado en memoria)
+    const rows = await req.app.locals.loadData();
+    if (!Array.isArray(rows)) return res.status(500).json({ error: 'Datos inválidos' });
+
+    // 5) Filtro
     const filtro = buildFiltroFn(req.query);
 
-    const aggDept = new Map(); // deptCanon -> total
-    const aggCity = new Map(); // cityCanon__deptCanon -> total
+    // 6) Agregación
+    const aggDept = new Map();           // deptCanon -> total
+    const aggCity = new Map();           // cityCanon__deptCanon -> total
 
     for (const row of rows) {
       if (!filtro(row)) continue;
@@ -106,42 +139,59 @@ router.get('/', async (req, res) => {
       }
     }
 
+    // 7) Salida (usa OFFICIAL si está disponible; si no, fallback a canónicos)
+    let out;
     if (groupBy === 'departamento') {
-      const out = [];
+      out = [];
       for (const [dCanon, total] of aggDept.entries()) {
-        let dOff = OFFICIAL.deptCanon2Official.get(dCanon);
-        if (dCanon === BOGOTA_CANON) dOff = OFFICIAL.bogotaDeptOfficial;
-        if (!dOff) dOff = dCanon; // fallback legible
-        out.push({ departamento: dOff, total });
+        let nombreDept;
+        if (OFFICIAL) {
+          nombreDept = OFFICIAL.deptCanon2Official.get(dCanon) || (dCanon === BOGOTA_CANON ? OFFICIAL.bogotaDeptOfficial : null);
+        }
+        // Fallback: devuelve canónico (normalizado) si no hay OFFICIAL
+        if (!nombreDept) nombreDept = (dCanon === BOGOTA_CANON) ? 'Bogotá D.C.' : dCanon;
+        out.push({ departamento: nombreDept, total });
       }
-      return res.json(out);
+    } else {
+      out = [];
+      for (const [key, total] of aggCity.entries()) {
+        const [cCanon, dCanon] = key.split('__');
+
+        if (OFFICIAL) {
+          const mapping = OFFICIAL.cityCanon2Official.get(key);
+          if (mapping) {
+            out.push({ departamento: mapping.dept, ciudad: mapping.city, total });
+            continue;
+          }
+          if (dCanon === BOGOTA_CANON && isBogotaCityCanon(cCanon)) {
+            out.push({ departamento: OFFICIAL.bogotaDeptOfficial, ciudad: OFFICIAL.bogotaCityOfficial, total });
+            continue;
+          }
+        }
+
+        // Fallback sin OFFICIAL: nombres canónicos legibles
+        const deptNombre = (dCanon === BOGOTA_CANON) ? 'Bogotá D.C.' : (OFFICIAL?.deptCanon2Official.get(dCanon) || dCanon);
+        out.push({ departamento: deptNombre, ciudad: cCanon, total });
+      }
     }
 
-    // group_by=ciudad (o default)
-    const out = [];
-    for (const [key, total] of aggCity.entries()) {
-      const [cCanon, dCanon] = key.split('__');
-
-      const mapping = OFFICIAL.cityCanon2Official.get(key);
-      if (mapping) {
-        out.push({ departamento: mapping.dept, ciudad: mapping.city, total });
-        continue;
+    // 8) Escribe caché si está disponible
+    try {
+      if (typeof cacheKeyFromQuery === 'function' && typeof MAPA_CACHE !== 'undefined') {
+        const cacheKey = cacheKeyFromQuery(req.query);
+        MAPA_CACHE.set(cacheKey, { t: Date.now(), data: out });
       }
-
-      if (dCanon === BOGOTA_CANON && isBogotaCityCanon(cCanon)) {
-        out.push({ departamento: OFFICIAL.bogotaDeptOfficial, ciudad: OFFICIAL.bogotaCityOfficial, total });
-        continue;
-      }
-
-      const dOff = OFFICIAL.deptCanon2Official.get(dCanon) || dCanon;
-      out.push({ departamento: dOff, ciudad: cCanon, total });
+    } catch (e) {
+      console.warn('[ventas_mapa] cache write warn:', e?.message || e);
     }
 
-    res.json(out);
+    return res.json(out);
   } catch (err) {
     console.error('[ventas_mapa] error:', err);
-    res.status(500).json({ error: 'Error procesando datos de mapa' });
+    return res.status(500).json({ error: 'Error procesando datos de mapa' });
   }
 });
+
+
 
 module.exports = router;

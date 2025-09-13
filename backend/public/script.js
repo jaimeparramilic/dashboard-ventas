@@ -388,24 +388,37 @@ function crearLeyenda(max, titulo = "Ventas") {
 /* Render por chunks para fluidez */
 function addGeoJSONChunked(base, options, onProgress, done) {
   const feats = (base && base.features) ? base.features : [];
-  if (!feats.length) { done && done(null); return; }
+  if (!feats.length) { if (done) done(null); return; }
 
   const group = L.featureGroup().addTo(mapa);
   let i = 0;
   const batch = 200;
 
+  // Scheduler seguro: usa rIC con {timeout}, si no rAF, si no setTimeout
+  const schedule = (cb) => {
+    if (typeof window.requestIdleCallback === 'function') {
+      return window.requestIdleCallback(() => cb(), { timeout: 60 });
+    }
+    if (typeof window.requestAnimationFrame === 'function') {
+      return window.requestAnimationFrame(cb);
+    }
+    return setTimeout(cb, 0);
+  };
+
   function step() {
-    if (i >= feats.length) { done && done(group); return; }
+    if (i >= feats.length) { if (done) done(group); return; }
     const end = Math.min(i + batch, feats.length);
     const slice = feats.slice(i, end);
     const fc = { type: "FeatureCollection", features: slice };
     L.geoJSON(fc, options).addTo(group);
     i = end;
     if (onProgress) onProgress(i / feats.length);
-    (window.requestIdleCallback || window.requestAnimationFrame || setTimeout)(step, 0);
+    schedule(step);
   }
+
   step();
 }
+
 
 async function renderCoropletas() {
   initMapaSiNecesario();
