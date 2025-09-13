@@ -24,7 +24,8 @@ async function cachedFetch(url, opts = {}, ttlMs = 60_000) {
   }
   const sleep = (ms) => new Promise(r => setTimeout(r, ms));
   let lastErr;
-  for (let i = 0; i < 3; i++) {
+  // 5 intentos con backoff 300, 600, 1200, 2400, 3000ms (+ jitter)
+  for (let i = 0; i < 5; i++) {
     try {
       const res = await fetch(url, opts);
       if (!res.ok) {
@@ -36,17 +37,25 @@ async function cachedFetch(url, opts = {}, ttlMs = 60_000) {
       return new Response(new Blob([text]), { status: 200 });
     } catch (e) {
       lastErr = e;
-      if (i < 2) await sleep(300 * (i + 1)); // backoff: 300ms, 600ms
+      if (i < 4) {
+        const base = 300 * Math.pow(2, i);
+        const jitter = Math.floor(Math.random() * 150);
+        await sleep(base + jitter);
+      }
     }
   }
   throw lastErr;
 }
 
 
+
 /* =================== Rutas locales GeoJSON =================== */
 // backend/public/script.js
-const URL_DEPTOS   = "https://storage.googleapis.com/ventas-geo-bubbly-vine-471620-h1/departamentos.geojson";
-const URL_CIUDADES = "https://storage.googleapis.com/ventas-geo-bubbly-vine-471620-h1/ciudades.geojson";
+// AJUSTA el nombre del bucket a tu valor real
+const GCS_BUCKET = "ventas-geo-bubbly-vine-471620-h1";
+
+const URL_DEPTOS   = `https://storage.googleapis.com/${GCS_BUCKET}/departamentos.geojson`;
+const URL_CIUDADES = `https://storage.googleapis.com/${GCS_BUCKET}/ciudades.geojson`;
 
 
 /* =================== Helpers base =================== */
@@ -411,20 +420,39 @@ async function renderCoropletas() {
     const filtros = getFiltros();
     const nivel = window.nivelMapa || (filtros.ciudad ? "ciudad" : "departamento");
 
+    // 1) Asegura geografía cargada (desde GCS)
     await cargarGeoJSON();
-    const agregados = await fetchAggregadosPorNivel(nivel, signal);
+    const base = (nivel === "departamento") ? geoDeptos : geoCiudades;
+    if (!base || !Array.isArray(base.features) || base.features.length === 0) {
+      throw new Error("GeoJSON no cargado o vacío");
+    }
+
+    // 2) Pide agregados al backend (con retries dentro de cachedFetch)
+    let agregados = [];
+    try {
+      agregados = await fetchAggregadosPorNivel(nivel, signal);
+    } catch (e) {
+      // Si falla, seguimos dibujando el mapa "en blanco" para no romper UX
+      console.warn("No se pudieron cargar agregados del backend:", e);
+      agregados = [];
+    }
     loaders.mapa.setText("Calculando ventas…");
 
+    // 3) Normaliza y acumula valores
     const valores = new Map();
     let maxVal = 0;
+
     for (const row of agregados) {
       const dpto = normalize(row.departamento || row.dpto || row.dep || "");
       const city = normalize(row.ciudad || row.municipio || row.mpio || "");
       const total = Number(row.total ?? row.valor ?? row.ventas ?? 0) || 0;
 
       let key;
-      if (nivel === "departamento") key = dpto;
-      else key = city && dpto ? `${city}__${dpto}` : city;
+      if (nivel === "departamento") {
+        key = dpto;
+      } else {
+        key = (city && dpto) ? `${city}__${dpto}` : city;
+      }
 
       if (!key) continue;
       const acc = (valores.get(key) || 0) + total;
@@ -432,18 +460,23 @@ async function renderCoropletas() {
       if (acc > maxVal) maxVal = acc;
     }
 
+    // 4) Limpia capa anterior y pinta
     limpiarCapaPoligonos();
 
-    const base = (nivel === "departamento") ? geoDeptos : geoCiudades;
     const options = {
       style: (feature) => {
         const dptoName = normalize(nombreDeptoFromFeature(feature));
         const cityName = normalize(nombreCiudadFromFeature(feature));
-        const key = (nivel === "departamento") ? dptoName : (cityName && dptoName ? `${cityName}__${dptoName}` : cityName);
-        const v = valores.get(key) || 0;
+        const mapKey = (nivel === "departamento")
+          ? dptoName
+          : ((cityName && dptoName) ? `${cityName}__${dptoName}` : cityName);
+
+        const v = valores.get(mapKey) || 0;
+        const maxRef = maxVal || 1;
+
         return {
           className: "poly-glow",
-          fillColor: colorScale(v, maxVal || 1),
+          fillColor: colorScale(v, maxRef),
           weight: 0.9,
           opacity: 1,
           color: "#0f172a",
@@ -455,10 +488,13 @@ async function renderCoropletas() {
         const cityDisp = nombreCiudadFromFeature(feature) || "—";
         const dptoKey  = normalize(dptoDisp);
         const cityKey  = normalize(cityDisp);
-        const mapKey   = (nivel === "departamento") ? dptoKey : (cityKey && dptoKey ? `${cityKey}__${dptoKey}` : cityKey);
-        const v = valores.get(mapKey) || 0;
+        const mapKey   = (nivel === "departamento")
+          ? dptoKey
+          : ((cityKey && dptoKey) ? `${cityKey}__${dptoKey}` : cityKey);
 
+        const v = valores.get(mapKey) || 0;
         const title = (nivel === "departamento") ? dptoDisp : `${cityDisp} (${dptoDisp})`;
+
         layer.bindTooltip(`${title}<br><strong>$${Math.round(v).toLocaleString()}</strong>`, { sticky: true });
 
         layer.on("click", () => { try { mapa.fitBounds(layer.getBounds().pad(0.25)); } catch {} });
@@ -475,10 +511,13 @@ async function renderCoropletas() {
       });
     });
 
+    // 5) Ajusta vista y leyenda
     try { mapa.fitBounds(layerPoligonos.getBounds().pad(0.1)); } catch {}
     crearLeyenda(maxVal || 1, nivel === 'departamento' ? 'Ventas por departamento' : 'Ventas por ciudad');
   } catch (e) {
-    if (e.name !== "AbortError") console.error("Mapa error:", e);
+    if (e.name !== "AbortError") {
+      console.error("Mapa error:", e);
+    }
   } finally {
     loaders.mapa.hide();
     aborts.mapa = null;
