@@ -18,7 +18,7 @@ app.use(cors());
 app.use(express.json());
 
 // 👉 Servir frontend (importante: antes de app.get('/'))
-app.use(express.static(path.join(__dirname, '../public')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Rutas API oficiales
 app.use('/ventas', ventasRouter);

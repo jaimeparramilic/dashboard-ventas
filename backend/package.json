@@ -15,9 +15,6 @@
     "csv-parser": "^3.2.0",
     "csv-writer": "^1.6.0",
     "d3": "^7.9.0",
-    "express": "^5.1.0",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-simple-maps": "^1.0.0"
+    "express": "^5.1.0"
   }
 }
