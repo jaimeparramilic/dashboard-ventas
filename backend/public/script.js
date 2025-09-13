@@ -373,6 +373,9 @@ async function fetchAggregadosPorNivel(nivel, signal) {
 
 /* Degradé azul → morado moderno */
 function colorScale(value, max) {
+  // 0 (o falsy) en gris neutro
+  if (!value || value <= 0) return "#9ca3af"; // gray-400
+
   const n = Math.max(1, Number(max) || 1);
   const r = Math.max(0, Math.min(1, value / n));
   if (r <= 0.15) return "#1e3a8a";
@@ -382,6 +385,7 @@ function colorScale(value, max) {
   if (r <= 0.9)  return "#a855f7";
   return "#c084fc";
 }
+
 
 function limpiarCapaPoligonos() {
   if (layerPoligonos) { mapa.removeLayer(layerPoligonos); layerPoligonos = null; }
@@ -595,7 +599,12 @@ async function renderCoropletas() {
     });
 
     // 5) Ajusta vista y leyenda
-    try { mapa.fitBounds(layerPoligonos.getBounds().pad(0.1)); } catch {}
+    try {
+      const bounds = layerPoligonos.getBounds();
+      mapa.fitBounds(bounds.pad(0.1));
+      // sube un nivel adicional sin animación
+      mapa.setZoom(mapa.getZoom() + 1, { animate: false });
+      } catch {}
     crearLeyenda(maxVal || 1, nivel === 'departamento' ? 'Ventas por departamento' : 'Ventas por ciudad');
   } catch (e) {
     if (e.name !== "AbortError") {
