@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard de Ventas - ODDS</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+
+  <style>
+    :root{
+      --bg:#000; --card:#0f172a; --muted:#9ca3af; --border:#374151;
+      --header-h: 88px; /* se recalcula en JS */
+      --gap: 10px;      /* separación bajo el header */
+    }
+
+    body{ background:#000; color:#fff; font-family:'Segoe UI',system-ui,-apple-system,Arial,sans-serif; }
+
+    /* Header fijo */
+    .topbar{
+      position: fixed; top:0; left:0; right:0; z-index:1000;
+      background:#111; border-bottom:1px solid #222; padding:4px 0;
+    }
+    .brand img{ height:34px; }
+    .brand-title{ font-weight:800; font-size:1.25rem; margin:0 0 0 .5rem; }
+
+    /* Spacer que empuja el contenido (ajustado en JS) */
+    .topbar-spacer{ height: calc(var(--header-h) + var(--gap)); }
+
+    /* Filtros */
+    .filters-wrap{ padding:6px 0 8px; }
+    .form-label{ font-size:.78rem; color:#cbd5e1; margin-bottom:4px; }
+    .form-select, .btn{
+      background:#1b1b1b; color:#fff; border:1px solid #3a3a3a;
+      font-size:.85rem; padding:.35rem .5rem; height:36px;
+    }
+    .btn-apply{ background:#fff; color:#000; font-weight:700; border:none; }
+    .btn-outline-light{ border-color:#666; color:#ddd; }
+    .btn-outline-light:hover{ background:#ddd; color:#111; }
+
+    /* Toggle nivel */
+    .btn-seg{ background:#1f2937; color:#e5e7eb; border:1px solid #374151; font-weight:600; }
+    .btn-seg.active{ background:#fff; color:#111827; border-color:#fff; }
+    .btn-seg:not(.active):hover{ filter:brightness(1.08); }
+
+    /* KPI cards */
+    #kpiContainer{ margin-top:8px; position:relative; z-index:1; }
+    .kpi-card{
+      background:#121826; border:1px solid var(--border); border-radius:12px;
+      padding:12px 14px; box-shadow:0 4px 18px rgba(0,0,0,.35);
+    }
+    .kpi-card h6{ color:var(--muted); text-transform:uppercase; letter-spacing:.4px; margin:0 0 4px; font-size:.9rem; }
+    .kpi-card p{ margin:0; font-weight:800; font-size:1.35rem; }
+
+    /* Mapa */
+    #map{
+      height:72vh; border-radius:12px; border:1px solid var(--border);
+      background:#000; box-shadow:0 8px 28px rgba(0,0,0,.45); margin-top:10px;
+      position:relative; z-index:0;
+    }
+    .poly-glow{ filter: drop-shadow(0 0 10px rgba(139,92,246,.35)); }
+
+    /* Gráfica */
+    .card-time{ background:#111; border:1px solid #444; border-radius:12px; box-shadow:0 8px 28px rgba(0,0,0,.4); }
+    canvas{ background:#111; border-radius:10px; padding:10px; width:100%; }
+
+    /* Leaflet */
+    #map, .leaflet-container{ overflow:visible !important; }
+    .leaflet-control{ z-index:10000 !important; }
+    .leaflet-bottom.leaflet-right{ right:14px; bottom:14px; }
+  </style>
+</head>
+<body>
+  <!-- TOP BAR -->
+  <header class="topbar">
+    <div class="container">
+      <!-- Logo + título -->
+      <div class="d-flex align-items-center">
+        <a class="brand d-flex align-items-center text-decoration-none text-white" href="#">
+          <img src="logo_odds.png" alt="ODDS">
+          <span class="brand-title">Dashboard de Ventas</span>
+        </a>
+      </div>
+
+      <!-- Filtros (en una sola línea) + Nivel + Acciones -->
+      <div class="filters-wrap">
+        <div class="row g-2 align-items-end">
+          <div class="col-6 col-xxl-2">
+            <label for="departamento" class="form-label">Departamento</label>
+            <select id="departamento" class="form-select"><option value="">Todas</option></select>
+          </div>
+          <div class="col-6 col-xxl-2">
+            <label for="ciudad" class="form-label">Ciudad</label>
+            <select id="ciudad" class="form-select"><option value="">Todas</option></select>
+          </div>
+          <div class="col-6 col-xxl-2">
+            <label for="macrocategoria" class="form-label">Macrocategoría</label>
+            <select id="macrocategoria" class="form-select"><option value="">Todas</option></select>
+          </div>
+          <div class="col-6 col-xxl-2">
+            <label for="categoria" class="form-label">Categoría</label>
+            <select id="categoria" class="form-select"><option value="">Todas</option></select>
+          </div>
+          <div class="col-6 col-xxl-2">
+            <label for="subcategoria" class="form-label">Subcategoría</label>
+            <select id="subcategoria" class="form-select"><option value="">Todas</option></select>
+          </div>
+          <div class="col-6 col-xxl-2">
+            <label for="marca" class="form-label">Marca</label>
+            <select id="marca" class="form-select"><option value="">Todas</option></select>
+          </div>
+
+          <!-- Nivel -->
+          <div class="col-12 col-lg-5 col-xxl-4">
+            <label class="form-label">Nivel</label>
+            <div id="nivelGroup" class="btn-group w-100" role="group" aria-label="Nivel">
+              <button type="button" class="btn btn-seg active" data-nivel="departamento" onclick="changeNivel('departamento')">Departamento</button>
+              <button type="button" class="btn btn-seg" data-nivel="ciudad" onclick="changeNivel('ciudad')">Ciudad</button>
+            </div>
+          </div>
+
+          <!-- Acciones -->
+          <div class="col-6 col-lg-3 col-xxl-2 d-grid">
+            <label class="form-label d-none d-lg-block">&nbsp;</label>
+            <button id="btnMapa" class="btn btn-apply" onclick="aplicar()">Aplicar</button>
+          </div>
+          <div class="col-6 col-lg-2 col-xxl-2 d-grid">
+            <label class="form-label d-none d-lg-block">&nbsp;</label>
+            <button id="btnExport" class="btn btn-outline-light" onclick="exportarCSV()">Descargar CSV</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Spacer que deja espacio al header fijo -->
+  <div class="topbar-spacer"></div>
+
+  <!-- CONTENIDO -->
+  <main class="container py-2">
+    <!-- KPIs -->
+    <div id="kpiContainer" class="row text-center mb-2">
+      <div class="col-md-4"><div class="kpi-card"><h6>Total Ventas</h6><p id="kpi-ventas">--</p></div></div>
+      <div class="col-md-4"><div class="kpi-card"><h6>Unidades Vendidas</h6><p id="kpi-unidades">--</p></div></div>
+      <div class="col-md-4"><div class="kpi-card"><h6>Ticket Promedio</h6><p id="kpi-ticket">--</p></div></div>
+    </div>
+
+    <!-- Mapa -->
+    <div id="map"></div>
+
+    <!-- Serie de tiempo -->
+    <div class="card card-time mt-3 p-3">
+      <canvas id="chartVentas"></canvas>
+    </div>
+  </main>
+
+  <!-- Libs -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <!-- Tu app -->
+  <script src="script.js"></script>
+
+  <!-- Helpers inline (nivel/mapa + spacer del header) -->
+  <script>
+    function changeNivel(nuevo) {
+      try {
+        if (!window.nivelMapa) window.nivelMapa = 'departamento';
+        if (nuevo === window.nivelMapa) return;
+        window.nivelMapa = nuevo;
+
+        const group = document.getElementById('nivelGroup');
+        if (group) {
+          group.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+          const btn = group.querySelector(`button[data-nivel="${nuevo}"]`);
+          if (btn) btn.classList.add('active');
+        }
+        if (typeof renderCoropletas === 'function') renderCoropletas();
+        if (typeof cargarKPIs === 'function') cargarKPIs();
+        if (typeof cargarGrafico === 'function') cargarGrafico();
+      } catch (e) { console.error(e); }
+    }
+    function aplicar() {
+      if (typeof cargarKPIs === 'function') cargarKPIs();
+      if (typeof renderCoropletas === 'function') renderCoropletas();
+      if (typeof cargarGrafico === 'function') cargarGrafico();
+    }
+    const refit = () => {
+      if (window.mapa && window.layerPoligonos) {
+        setTimeout(() => {
+          try { mapa.invalidateSize(); mapa.fitBounds(layerPoligonos.getBounds().pad(0.1)); } catch {}
+        }, 50);
+      }
+    };
+    window.addEventListener('resize', (()=>{ let t; return ()=>{ clearTimeout(t); t=setTimeout(refit,150);} })());
+    document.addEventListener('DOMContentLoaded', refit);
+  </script>
+
+  <!-- Spacer robusto con ResizeObserver -->
+  <script>
+    (function(){
+      const spacer = ()=> {
+        const bar = document.querySelector('.topbar');
+        const sp  = document.querySelector('.topbar-spacer');
+        if(!bar || !sp) return;
+        const h = Math.ceil(bar.getBoundingClientRect().height || 88);
+        document.documentElement.style.setProperty('--header-h', h + 'px');
+        sp.style.height = `calc(${h}px + var(--gap))`;
+      };
+      const deb = (fn, d=80)=>{ let t; return ()=>{ clearTimeout(t); t=setTimeout(fn,d); } };
+      window.addEventListener('load', spacer);
+      window.addEventListener('resize', deb(spacer, 120));
+      const bar = document.querySelector('.topbar');
+      if (window.ResizeObserver && bar) {
+        const ro = new ResizeObserver(spacer);
+        ro.observe(bar);
+      } else {
+        let n=0; const t=setInterval(()=>{ spacer(); if(++n>15) clearInterval(t); }, 70);
+      }
+    })();
+  </script>
+</body>
+</html>

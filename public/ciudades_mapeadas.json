@@ -1,0 +1,672 @@
+[
+  {
+    "ciudad": "Abejorral",
+    "lat": 10.6,
+    "lon": 7.0
+  },
+  {
+    "ciudad": "Apartado",
+    "lat": 14.0,
+    "lon": 10.4
+  },
+  {
+    "ciudad": "Armenia",
+    "lat": 92.2,
+    "lon": -75.3
+  },
+  {
+    "ciudad": "Barbosa",
+    "lat": 60.1,
+    "lon": 1.9
+  },
+  {
+    "ciudad": "Bello",
+    "lat": 3.5,
+    "lon": -67.5
+  },
+  {
+    "ciudad": "Caldas",
+    "lat": 76.0,
+    "lon": -49.4
+  },
+  {
+    "ciudad": "Canasgordas",
+    "lat": 94.8,
+    "lon": -43.9
+  },
+  {
+    "ciudad": "Carepa",
+    "lat": 7.8,
+    "lon": -79.5
+  },
+  {
+    "ciudad": "Caucasia",
+    "lat": 93.5,
+    "lon": -30.3
+  },
+  {
+    "ciudad": "Cocorna",
+    "lat": 12.8,
+    "lon": -11.9
+  },
+  {
+    "ciudad": "Copacabana",
+    "lat": 12.0,
+    "lon": -35.7
+  },
+  {
+    "ciudad": "El Carmen De Viboral",
+    "lat": 79.6,
+    "lon": -18.0
+  },
+  {
+    "ciudad": "El Santuario",
+    "lat": 36.6,
+    "lon": -50.6
+  },
+  {
+    "ciudad": "Envigado",
+    "lat": 28.9,
+    "lon": -14.4
+  },
+  {
+    "ciudad": "Fredonia",
+    "lat": 58.5,
+    "lon": -47.4
+  },
+  {
+    "ciudad": "Girardota",
+    "lat": 83.2,
+    "lon": 18.1
+  },
+  {
+    "ciudad": "Granada",
+    "lat": 59.3,
+    "lon": -59.2
+  },
+  {
+    "ciudad": "Guarne",
+    "lat": 68.5,
+    "lon": -69.9
+  },
+  {
+    "ciudad": "Itagui",
+    "lat": 19.6,
+    "lon": -34.8
+  },
+  {
+    "ciudad": "La Ceja",
+    "lat": 72.3,
+    "lon": -12.2
+  },
+  {
+    "ciudad": "La Estrella",
+    "lat": 14.6,
+    "lon": -77.8
+  },
+  {
+    "ciudad": "Marinilla",
+    "lat": 77.4,
+    "lon": -26.4
+  },
+  {
+    "ciudad": "Medellin",
+    "lat": 88.7,
+    "lon": -36.3
+  },
+  {
+    "ciudad": "Mutata",
+    "lat": 57.3,
+    "lon": 3.8
+  },
+  {
+    "ciudad": "Penol",
+    "lat": 40.8,
+    "lon": 13.2
+  },
+  {
+    "ciudad": "Rionegro",
+    "lat": 91.3,
+    "lon": -58.7
+  },
+  {
+    "ciudad": "Sabaneta",
+    "lat": 78.0,
+    "lon": 12.4
+  },
+  {
+    "ciudad": "San Pedro De Uraba",
+    "lat": 66.2,
+    "lon": -57.9
+  },
+  {
+    "ciudad": "Segovia",
+    "lat": 62.4,
+    "lon": 1.0
+  },
+  {
+    "ciudad": "Tamesis",
+    "lat": 33.0,
+    "lon": -27.0
+  },
+  {
+    "ciudad": "Yarumal",
+    "lat": 39.4,
+    "lon": -58.7
+  },
+  {
+    "ciudad": "Yondo",
+    "lat": 85.9,
+    "lon": -6.5
+  },
+  {
+    "ciudad": "Baranoa",
+    "lat": 54.8,
+    "lon": 15.9
+  },
+  {
+    "ciudad": "Barranquilla",
+    "lat": 61.4,
+    "lon": -9.3
+  },
+  {
+    "ciudad": "Galapa",
+    "lat": 91.5,
+    "lon": -18.1
+  },
+  {
+    "ciudad": "Malambo",
+    "lat": 39.4,
+    "lon": -3.6
+  },
+  {
+    "ciudad": "Palmar De Varela",
+    "lat": 37.8,
+    "lon": -7.9
+  },
+  {
+    "ciudad": "Polonuevo",
+    "lat": 64.9,
+    "lon": -6.3
+  },
+  {
+    "ciudad": "Ponedera",
+    "lat": 49.0,
+    "lon": -30.4
+  },
+  {
+    "ciudad": "Puerto Colombia",
+    "lat": 92.1,
+    "lon": 0.5
+  },
+  {
+    "ciudad": "Santo Tomas",
+    "lat": 79.1,
+    "lon": -35.8
+  },
+  {
+    "ciudad": "Soledad",
+    "lat": 21.3,
+    "lon": -17.8
+  },
+  {
+    "ciudad": "Suan",
+    "lat": 87.3,
+    "lon": -45.4
+  },
+  {
+    "ciudad": "Cartagena",
+    "lat": 30.8,
+    "lon": -61.6
+  },
+  {
+    "ciudad": "Duitama",
+    "lat": 69.1,
+    "lon": -20.7
+  },
+  {
+    "ciudad": "Sogamoso",
+    "lat": 52.2,
+    "lon": 19.2
+  },
+  {
+    "ciudad": "Tunja",
+    "lat": 79.4,
+    "lon": -33.5
+  },
+  {
+    "ciudad": "Manizales",
+    "lat": 38.6,
+    "lon": -28.1
+  },
+  {
+    "ciudad": "Florencia",
+    "lat": 89.1,
+    "lon": -39.4
+  },
+  {
+    "ciudad": "Yopal",
+    "lat": 15.9,
+    "lon": 8.2
+  },
+  {
+    "ciudad": "Aguachica",
+    "lat": 80.5,
+    "lon": -42.4
+  },
+  {
+    "ciudad": "Monteria",
+    "lat": 60.2,
+    "lon": 11.7
+  },
+  {
+    "ciudad": "Anapoima",
+    "lat": 59.0,
+    "lon": -63.6
+  },
+  {
+    "ciudad": "Bogota D.C.",
+    "lat": 77.0,
+    "lon": 16.5
+  },
+  {
+    "ciudad": "Cajica",
+    "lat": 56.7,
+    "lon": -39.3
+  },
+  {
+    "ciudad": "Chia",
+    "lat": 75.3,
+    "lon": -14.7
+  },
+  {
+    "ciudad": "Cogua",
+    "lat": 44.1,
+    "lon": -52.7
+  },
+  {
+    "ciudad": "Cota",
+    "lat": 37.6,
+    "lon": -66.6
+  },
+  {
+    "ciudad": "El Colegio",
+    "lat": 27.9,
+    "lon": -13.2
+  },
+  {
+    "ciudad": "El Rosal",
+    "lat": 24.3,
+    "lon": -62.5
+  },
+  {
+    "ciudad": "Facatativa",
+    "lat": 56.1,
+    "lon": -65.4
+  },
+  {
+    "ciudad": "Funza",
+    "lat": 76.2,
+    "lon": -9.9
+  },
+  {
+    "ciudad": "Fusagasuga",
+    "lat": 25.7,
+    "lon": -31.8
+  },
+  {
+    "ciudad": "Gacheta",
+    "lat": 37.1,
+    "lon": -3.2
+  },
+  {
+    "ciudad": "Girardot",
+    "lat": 76.1,
+    "lon": -50.8
+  },
+  {
+    "ciudad": "Guaduas",
+    "lat": 57.3,
+    "lon": -40.5
+  },
+  {
+    "ciudad": "Guasca",
+    "lat": 80.3,
+    "lon": -12.9
+  },
+  {
+    "ciudad": "La Calera",
+    "lat": 88.2,
+    "lon": -73.2
+  },
+  {
+    "ciudad": "La Mesa",
+    "lat": 49.0,
+    "lon": -6.9
+  },
+  {
+    "ciudad": "La Vega",
+    "lat": 22.6,
+    "lon": -31.8
+  },
+  {
+    "ciudad": "Madrid",
+    "lat": 31.4,
+    "lon": -70.0
+  },
+  {
+    "ciudad": "Mosquera",
+    "lat": 26.8,
+    "lon": 18.2
+  },
+  {
+    "ciudad": "Pacho",
+    "lat": 36.7,
+    "lon": -35.5
+  },
+  {
+    "ciudad": "Ricaurte",
+    "lat": 60.1,
+    "lon": -24.1
+  },
+  {
+    "ciudad": "San Juan De Rio Seco",
+    "lat": 35.9,
+    "lon": -33.9
+  },
+  {
+    "ciudad": "Sibate",
+    "lat": 69.1,
+    "lon": -62.6
+  },
+  {
+    "ciudad": "Silvania",
+    "lat": 86.9,
+    "lon": -27.5
+  },
+  {
+    "ciudad": "Soacha",
+    "lat": 72.9,
+    "lon": -73.4
+  },
+  {
+    "ciudad": "Sopo",
+    "lat": 51.2,
+    "lon": -55.8
+  },
+  {
+    "ciudad": "Tabio",
+    "lat": 54.5,
+    "lon": -24.5
+  },
+  {
+    "ciudad": "Tenjo",
+    "lat": 4.7,
+    "lon": -12.1
+  },
+  {
+    "ciudad": "Tocancipa",
+    "lat": 75.6,
+    "lon": -64.0
+  },
+  {
+    "ciudad": "Villa De San Diego De Ubate",
+    "lat": 22.4,
+    "lon": -8.0
+  },
+  {
+    "ciudad": "Villeta",
+    "lat": 60.9,
+    "lon": -58.5
+  },
+  {
+    "ciudad": "Viota",
+    "lat": -3.6,
+    "lon": 11.2
+  },
+  {
+    "ciudad": "Zipaquira",
+    "lat": 4.4,
+    "lon": -73.9
+  },
+  {
+    "ciudad": "Garzon",
+    "lat": 45.5,
+    "lon": -60.0
+  },
+  {
+    "ciudad": "Neiva",
+    "lat": 80.4,
+    "lon": -55.8
+  },
+  {
+    "ciudad": "Pitalito",
+    "lat": 9.2,
+    "lon": -49.0
+  },
+  {
+    "ciudad": "San Agustin",
+    "lat": 71.9,
+    "lon": -23.9
+  },
+  {
+    "ciudad": "Santa Marta",
+    "lat": 51.0,
+    "lon": -13.7
+  },
+  {
+    "ciudad": "Acacias",
+    "lat": 20.4,
+    "lon": -31.0
+  },
+  {
+    "ciudad": "Villavicencio",
+    "lat": -2.1,
+    "lon": -56.6
+  },
+  {
+    "ciudad": "Pasto",
+    "lat": 84.2,
+    "lon": -63.3
+  },
+  {
+    "ciudad": "San Andres De Tumaco",
+    "lat": 92.3,
+    "lon": -74.8
+  },
+  {
+    "ciudad": "Belen De Umbria",
+    "lat": 74.6,
+    "lon": -27.6
+  },
+  {
+    "ciudad": "Dosquebradas",
+    "lat": 21.6,
+    "lon": -0.5
+  },
+  {
+    "ciudad": "Pereira",
+    "lat": -3.7,
+    "lon": -48.5
+  },
+  {
+    "ciudad": "Santa Rosa De Cabal",
+    "lat": 59.5,
+    "lon": -76.8
+  },
+  {
+    "ciudad": "Barrancabermeja",
+    "lat": 8.6,
+    "lon": -47.1
+  },
+  {
+    "ciudad": "Bucaramanga",
+    "lat": 18.6,
+    "lon": -36.6
+  },
+  {
+    "ciudad": "Floridablanca",
+    "lat": 67.9,
+    "lon": -68.6
+  },
+  {
+    "ciudad": "Giron",
+    "lat": 32.5,
+    "lon": -34.1
+  },
+  {
+    "ciudad": "Guadalupe",
+    "lat": 0.6,
+    "lon": -13.9
+  },
+  {
+    "ciudad": "Lebrija",
+    "lat": 10.4,
+    "lon": 15.5
+  },
+  {
+    "ciudad": "Piedecuesta",
+    "lat": 63.5,
+    "lon": 9.6
+  },
+  {
+    "ciudad": "Sabana De Torres",
+    "lat": 65.6,
+    "lon": -33.6
+  },
+  {
+    "ciudad": "San Gil",
+    "lat": 53.7,
+    "lon": -72.1
+  },
+  {
+    "ciudad": "San Vicente De Chucuri",
+    "lat": 82.3,
+    "lon": -21.3
+  },
+  {
+    "ciudad": "Socorro",
+    "lat": 22.8,
+    "lon": -6.4
+  },
+  {
+    "ciudad": "Espinal",
+    "lat": 32.2,
+    "lon": -16.1
+  },
+  {
+    "ciudad": "Ibague",
+    "lat": 42.8,
+    "lon": -16.9
+  },
+  {
+    "ciudad": "Andalucia",
+    "lat": 22.1,
+    "lon": -11.3
+  },
+  {
+    "ciudad": "Buenaventura",
+    "lat": 69.7,
+    "lon": 8.7
+  },
+  {
+    "ciudad": "Bugalagrande",
+    "lat": 66.5,
+    "lon": 18.1
+  },
+  {
+    "ciudad": "Caicedonia",
+    "lat": -3.5,
+    "lon": -64.4
+  },
+  {
+    "ciudad": "Cali",
+    "lat": 25.2,
+    "lon": 9.9
+  },
+  {
+    "ciudad": "Candelaria",
+    "lat": 28.1,
+    "lon": -12.4
+  },
+  {
+    "ciudad": "Cartago",
+    "lat": 49.8,
+    "lon": -33.4
+  },
+  {
+    "ciudad": "Dagua",
+    "lat": 35.6,
+    "lon": 4.1
+  },
+  {
+    "ciudad": "El Cerrito",
+    "lat": 35.8,
+    "lon": -15.0
+  },
+  {
+    "ciudad": "Florida",
+    "lat": 5.0,
+    "lon": -60.3
+  },
+  {
+    "ciudad": "Ginebra",
+    "lat": 64.1,
+    "lon": -59.8
+  },
+  {
+    "ciudad": "Guadalajara De Buga",
+    "lat": 42.4,
+    "lon": -21.2
+  },
+  {
+    "ciudad": "Jamundi",
+    "lat": -1.7,
+    "lon": -40.2
+  },
+  {
+    "ciudad": "La Union",
+    "lat": 6.3,
+    "lon": -20.2
+  },
+  {
+    "ciudad": "Palmira",
+    "lat": 69.9,
+    "lon": 11.0
+  },
+  {
+    "ciudad": "Pradera",
+    "lat": 62.6,
+    "lon": -29.6
+  },
+  {
+    "ciudad": "Sevilla",
+    "lat": 53.5,
+    "lon": -66.0
+  },
+  {
+    "ciudad": "Trujillo",
+    "lat": 68.5,
+    "lon": -24.2
+  },
+  {
+    "ciudad": "Tulua",
+    "lat": 18.0,
+    "lon": -16.4
+  },
+  {
+    "ciudad": "Vijes",
+    "lat": 71.0,
+    "lon": -65.0
+  },
+  {
+    "ciudad": "Yumbo",
+    "lat": 59.4,
+    "lon": -31.7
+  },
+  {
+    "ciudad": "Zarzal",
+    "lat": 44.4,
+    "lon": 7.8
+  }
+]
