@@ -1,0 +1,101 @@
+ciudad,departamento,ciudad_norm,depto_norm,status,geo_city_shapeName,geo_dept_name,geo_shapeID
+Bogota D.C.,Cundinamarca,bogota,bogota,city_match_no_dept_1_picked_first,"Bogotá, D.c.",Bogota Capital District,7082276B37057214617227
+Soledad,Atlantico,soledad,atlantico,ok,Soledad,Atlántico,7082276B16795204487945
+Cali,Valle Del Cauca,cali,valle del cauca,ok,Cali,Valle del Cauca,7082276B61798378462298
+Sabaneta,Antioquia,sabaneta,antioquia,ok,Sabaneta,Antioquia,7082276B45005796223132
+Ibague,Tolima,ibague,tolima,ok,Ibagué,Tolima,7082276B61216577882817
+Guadalajara De Buga,Valle Del Cauca,guadalajara de buga,valle del cauca,no_city_found,,,
+Cartagena,Bolivar,cartagena,bolivar,ok,Cartagena De Indias,Bolívar,7082276B69747109400917
+Medellin,Antioquia,medellin,antioquia,ok,Medellín,Antioquia,7082276B76690106408580
+San Andres De Tumaco,Narino,san andres de tumaco,narino,no_city_found,,,
+Sogamoso,Boyaca,sogamoso,boyaca,ok,Sogamoso,Boyacá,7082276B30941570566225
+Duitama,Boyaca,duitama,boyaca,ok,Duitama,Boyacá,7082276B48386151421369
+Bucaramanga,Santander,bucaramanga,santander,ok,Bucaramanga,Santander,7082276B15400349523065
+Tulua,Valle Del Cauca,tulua,valle del cauca,ok,Tuluá,Valle del Cauca,7082276B54316712133185
+Piedecuesta,Santander,piedecuesta,santander,ok,Piedecuesta,Santander,7082276B40020724861964
+Yumbo,Valle Del Cauca,yumbo,valle del cauca,ok,Yumbo,Valle del Cauca,7082276B37421860048311
+Marinilla,Antioquia,marinilla,antioquia,ok,Marinilla,Antioquia,7082276B39269491534376
+Barrancabermeja,Santander,barrancabermeja,santander,ok,Barrancabermeja,Santander,7082276B38592891469597
+Espinal,Tolima,espinal,tolima,ok,Espinal,Tolima,7082276B91766477501685
+Candelaria,Valle Del Cauca,candelaria,valle del cauca,ok,Candelaria,Valle del Cauca,7082276B28574289150765
+Floridablanca,Santander,floridablanca,santander,ok,Floridablanca,Santander,7082276B34435529925249
+Jamundi,Valle Del Cauca,jamundi,valle del cauca,ok,Jamundí,Valle del Cauca,7082276B34643153596427
+Tunja,Boyaca,tunja,boyaca,ok,Tunja,Boyacá,7082276B30096704247804
+Buenaventura,Valle Del Cauca,buenaventura,valle del cauca,ok,Buenaventura,Valle del Cauca,7082276B82326475607220
+Envigado,Antioquia,envigado,antioquia,ok,Envigado,Antioquia,7082276B11340902680280
+Palmira,Valle Del Cauca,palmira,valle del cauca,ok,Palmira,Valle del Cauca,7082276B49686436836196
+Itagui,Antioquia,itagui,antioquia,ok,Itagüí,Antioquia,7082276B40156907925674
+Monteria,Cordoba,monteria,cordoba,ok,Montería,Córdoba,7082276B30491480162439
+Dosquebradas,Risaralda,dosquebradas,risaralda,ok,Dosquebradas,Risaralda,7082276B1259376417396
+Caldas,Antioquia,caldas,antioquia,ok,Caldas,Antioquia,7082276B42449949359128
+Rionegro,Antioquia,rionegro,antioquia,ok,Rionegro,Antioquia,7082276B44493492234121
+Funza,Cundinamarca,funza,cundinamarca,ok,Funza,Cundinamarca,7082276B8627668413751
+Zarzal,Valle Del Cauca,zarzal,valle del cauca,ok,Zarzal,Valle del Cauca,7082276B55716898367144
+Florencia,Caqueta,florencia,caqueta,ok,Florencia,Caquetá,7082276B38105968828187
+Yopal,Casanare,yopal,casanare,ok,Yopal,Casanare,7082276B99207474078135
+Mosquera,Cundinamarca,mosquera,cundinamarca,ok,Mosquera,Cundinamarca,7082276B63365049346428
+Garzon,Huila,garzon,huila,ok,Garzón,Huila,7082276B84511387855625
+Pereira,Risaralda,pereira,risaralda,ok,Pereira,Risaralda,7082276B56557214099866
+Barbosa,Antioquia,barbosa,antioquia,ok,Barbosa,Antioquia,7082276B32709171288134
+Manizales,Caldas,manizales,caldas,ok,Manizales,Caldas,7082276B74376648695935
+Pitalito,Huila,pitalito,huila,ok,Pitalito,Huila,7082276B60713931967074
+Barranquilla,Atlantico,barranquilla,atlantico,no_city_found,,,
+Armenia,Quindio,armenia,quindio,ok,Armenia,Quindío,7082276B37596185991621
+Aguachica,Cesar,aguachica,cesar,ok,Aguachica,Cesar,7082276B33891550919089
+San Agustin,Huila,san agustin,huila,ok,San Agustín,Huila,7082276B97741553625130
+El Cerrito,Valle Del Cauca,el cerrito,valle del cauca,ok,El Cerrito,Valle del Cauca,7082276B46612550724020
+San Gil,Santander,san gil,santander,ok,San Gil,Santander,7082276B87231818219004
+Neiva,Huila,neiva,huila,ok,Neiva,Huila,7082276B10918286355
+Soacha,Cundinamarca,soacha,cundinamarca,ok,Soacha,Cundinamarca,7082276B50901736205159
+Villavicencio,Meta,villavicencio,meta,ok,Villavicencio,Meta,7082276B6983949832660
+Girardot,Cundinamarca,girardot,cundinamarca,ok,Girardot,Cundinamarca,7082276B44734955645531
+La Estrella,Antioquia,la estrella,antioquia,ok,La Estrella,Antioquia,7082276B46086591209782
+Madrid,Cundinamarca,madrid,cundinamarca,ok,Madrid,Cundinamarca,7082276B83937578345103
+Fusagasuga,Cundinamarca,fusagasuga,cundinamarca,ok,Fusagasugá,Cundinamarca,7082276B51871988442122
+Anapoima,Cundinamarca,anapoima,cundinamarca,ok,Anapoima,Cundinamarca,7082276B58765294535219
+El Rosal,Cundinamarca,el rosal,cundinamarca,ok,El Rosal,Cundinamarca,7082276B35688334029965
+Acacias,Meta,acacias,meta,ok,Acacías,Meta,7082276B9890611779462
+Santa Marta,Magdalena,santa marta,magdalena,ok,Santa Marta,Magdalena,7082276B2481053474358
+Pasto,Narino,pasto,narino,ok,Pasto,Nariño,7082276B828212266438
+El Santuario,Antioquia,el santuario,antioquia,no_city_found,,,
+Bello,Antioquia,bello,antioquia,ok,Bello,Antioquia,7082276B79272217078231
+Giron,Santander,giron,santander,ok,Girón,Santander,7082276B75603088073292
+Zipaquira,Cundinamarca,zipaquira,cundinamarca,ok,Zipaquira,Cundinamarca,7082276B49275138212053
+Ginebra,Valle Del Cauca,ginebra,valle del cauca,ok,Ginebra,Valle del Cauca,7082276B86237155674580
+Cartago,Valle Del Cauca,cartago,valle del cauca,ok,Cartago,Valle del Cauca,7082276B65356767722018
+Santo Tomas,Atlantico,santo tomas,atlantico,ok,Santo Tomás,Atlántico,7082276B26662960638408
+Yarumal,Antioquia,yarumal,antioquia,ok,Yarumal,Antioquia,7082276B85908118350563
+Yondo,Antioquia,yondo,antioquia,no_city_found,,,
+Silvania,Cundinamarca,silvania,cundinamarca,ok,Silvania,Cundinamarca,7082276B74452941535479
+Puerto Colombia,Atlantico,puerto colombia,atlantico,ok,Puerto Colombia,Atlántico,7082276B53697702098906
+Florida,Valle Del Cauca,florida,valle del cauca,ok,Florida,Valle del Cauca,7082276B72857503251060
+Chia,Cundinamarca,chia,cundinamarca,ok,Chia,Cundinamarca,7082276B36074400968325
+Guasca,Cundinamarca,guasca,cundinamarca,ok,Guasca,Cundinamarca,7082276B88398605204412
+San Vicente De Chucuri,Santander,san vicente de chucuri,santander,ok,San Vicente De Chucuri,Santander,7082276B82845110848853
+Mutata,Antioquia,mutata,antioquia,ok,Mutatá,Antioquia,7082276B10402397965480
+Cajica,Cundinamarca,cajica,cundinamarca,ok,Cajicá,Cundinamarca,7082276B54625644795372
+Malambo,Atlantico,malambo,atlantico,ok,Malambo,Atlántico,7082276B4213676035156
+Caucasia,Antioquia,caucasia,antioquia,ok,Caucasia,Antioquia,7082276B49158804939428
+Sabana De Torres,Santander,sabana de torres,santander,ok,Sabana De Torres,Santander,7082276B5396414457031
+La Mesa,Cundinamarca,la mesa,cundinamarca,ok,La Mesa,Cundinamarca,7082276B41572660322682
+Gacheta,Cundinamarca,gacheta,cundinamarca,ok,Gachetá,Cundinamarca,7082276B90187187212426
+Tocancipa,Cundinamarca,tocancipa,cundinamarca,ok,Tocancipá,Cundinamarca,7082276B10728251723000
+Cogua,Cundinamarca,cogua,cundinamarca,ok,Cogua,Cundinamarca,7082276B60465848550372
+Segovia,Antioquia,segovia,antioquia,ok,Segovia,Antioquia,7082276B19668764793541
+Cocorna,Antioquia,cocorna,antioquia,ok,Cocorná,Antioquia,7082276B66928007387737
+Socorro,Santander,socorro,santander,ok,Socorro,Santander,7082276B29346978372960
+Sevilla,Valle Del Cauca,sevilla,valle del cauca,ok,Sevilla,Valle del Cauca,7082276B53054479905694
+Facatativa,Cundinamarca,facatativa,cundinamarca,ok,Facatativá,Cundinamarca,7082276B42545892213611
+San Juan De Rio Seco,Cundinamarca,san juan de rio seco,cundinamarca,ok,San Juan De Rio Seco,Cundinamarca,7082276B56983029747572
+Tenjo,Cundinamarca,tenjo,cundinamarca,ok,Tenjo,Cundinamarca,7082276B86152202895144
+Girardota,Antioquia,girardota,antioquia,ok,Girardota,Antioquia,7082276B6763900439395
+Guarne,Antioquia,guarne,antioquia,ok,Guarne,Antioquia,7082276B92581613564352
+La Calera,Cundinamarca,la calera,cundinamarca,ok,La Calera,Cundinamarca,7082276B16624881870265
+Penol,Antioquia,penol,antioquia,ok,Peñol,Antioquia,7082276B19280887364863
+Villeta,Cundinamarca,villeta,cundinamarca,ok,Villeta,Cundinamarca,7082276B61730001772347
+Ricaurte,Cundinamarca,ricaurte,cundinamarca,ok,Ricaurte,Cundinamarca,7082276B32773092643387
+Galapa,Atlantico,galapa,atlantico,ok,Galapa,Atlántico,7082276B48939635057029
+La Union,Valle Del Cauca,la union,valle del cauca,ok,La Unión,Valle del Cauca,7082276B77686816472796
+Canasgordas,Antioquia,canasgordas,antioquia,ok,Cañasgordas,Antioquia,7082276B88320735192302
+Rionegro,Santander,rionegro,santander,ok,Rionegro,Santander,7082276B88836733063931
+Andalucia,Valle Del Cauca,andalucia,valle del cauca,ok,Andalucía,Valle del Cauca,7082276B16460113853729

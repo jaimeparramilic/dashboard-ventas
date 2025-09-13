@@ -120,8 +120,8 @@
           <div class="col-12 col-lg-5 col-xxl-4">
             <label class="form-label">Nivel</label>
             <div id="nivelGroup" class="btn-group w-100" role="group" aria-label="Nivel">
-              <button type="button" class="btn btn-seg active" data-nivel="departamento" onclick="changeNivel('departamento')">Departamento</button>
-              <button type="button" class="btn btn-seg" data-nivel="ciudad" onclick="changeNivel('ciudad')">Ciudad</button>
+              <button id="nivel-departamento" type="button" class="btn btn-seg active" data-nivel="departamento" onclick="changeNivel('departamento')">Departamento</button>
+              <button id="nivel-ciudad" type="button" class="btn btn-seg" data-nivel="ciudad" onclick="changeNivel('ciudad')">Ciudad</button>
             </div>
           </div>
 
@@ -166,7 +166,8 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
   <!-- Tu app -->
-  <script src="script.js"></script>
+  <!-- <script src="script.js"></script>-->
+  <script type="module" src="/js/main.js"></script>
 
   <!-- Helpers inline (nivel/mapa + spacer del header) -->
   <script>

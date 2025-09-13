@@ -1,0 +1,954 @@
+[
+  {
+    "ciudad_original":"Abejorral",
+    "ciudad_canon":"abejorral",
+    "departamento_para_ciudad":"antioquia",
+    "clave_ciudad__departamento":"abejorral__antioquia",
+    "departamento_original":"Antioquia"
+  },
+  {
+    "ciudad_original":"Acacias",
+    "ciudad_canon":"acacias",
+    "departamento_para_ciudad":"meta",
+    "clave_ciudad__departamento":"acacias__meta",
+    "departamento_original":"Meta"
+  },
+  {
+    "ciudad_original":"Aguachica",
+    "ciudad_canon":"aguachica",
+    "departamento_para_ciudad":"cesar",
+    "clave_ciudad__departamento":"aguachica__cesar",
+    "departamento_original":"Cesar"
+  },
+  {
+    "ciudad_original":"Anapoima",
+    "ciudad_canon":"anapoima",
+    "departamento_para_ciudad":"cundinamarca",
+    "clave_ciudad__departamento":"anapoima__cundinamarca",
+    "departamento_original":"Cundinamarca"
+  },
+  {
+    "ciudad_original":"Andalucia",
+    "ciudad_canon":"andalucia",
+    "departamento_para_ciudad":"valle del cauca",
+    "clave_ciudad__departamento":"andalucia__valle del cauca",
+    "departamento_original":"Valle Del Cauca"
+  },
+  {
+    "ciudad_original":"Apartado",
+    "ciudad_canon":"apartado",
+    "departamento_para_ciudad":"antioquia",
+    "clave_ciudad__departamento":"apartado__antioquia",
+    "departamento_original":"Antioquia"
+  },
+  {
+    "ciudad_original":"Armenia",
+    "ciudad_canon":"armenia",
+    "departamento_para_ciudad":"antioquia",
+    "clave_ciudad__departamento":"armenia__antioquia",
+    "departamento_original":"Antioquia"
+  },
+  {
+    "ciudad_original":"Armenia",
+    "ciudad_canon":"armenia",
+    "departamento_para_ciudad":"quindio",
+    "clave_ciudad__departamento":"armenia__quindio",
+    "departamento_original":"Quindio"
+  },
+  {
+    "ciudad_original":"Baranoa",
+    "ciudad_canon":"baranoa",
+    "departamento_para_ciudad":"atlantico",
+    "clave_ciudad__departamento":"baranoa__atlantico",
+    "departamento_original":"Atlantico"
+  },
+  {
+    "ciudad_original":"Barbosa",
+    "ciudad_canon":"barbosa",
+    "departamento_para_ciudad":"antioquia",
+    "clave_ciudad__departamento":"barbosa__antioquia",
+    "departamento_original":"Antioquia"
+  },
+  {
+    "ciudad_original":"Barrancabermeja",
+    "ciudad_canon":"barrancabermeja",
+    "departamento_para_ciudad":"santander",
+    "clave_ciudad__departamento":"barrancabermeja__santander",
+    "departamento_original":"Santander"
+  },
+  {
+    "ciudad_original":"Barranquilla",
+    "ciudad_canon":"barranquilla",
+    "departamento_para_ciudad":"atlantico",
+    "clave_ciudad__departamento":"barranquilla__atlantico",
+    "departamento_original":"Atlantico"
+  },
+  {
+    "ciudad_original":"Belen De Umbria",
+    "ciudad_canon":"belen umbria",
+    "departamento_para_ciudad":"risaralda",
+    "clave_ciudad__departamento":"belen umbria__risaralda",
+    "departamento_original":"Risaralda"
+  },
+  {
+    "ciudad_original":"Bello",
+    "ciudad_canon":"bello",
+    "departamento_para_ciudad":"antioquia",
+    "clave_ciudad__departamento":"bello__antioquia",
+    "departamento_original":"Antioquia"
+  },
+  {
+    "ciudad_original":"Bogota D.C.",
+    "ciudad_canon":"bogota",
+    "departamento_para_ciudad":"bogota dc",
+    "clave_ciudad__departamento":"bogota__bogota dc",
+    "departamento_original":"Cundinamarca"
+  },
+  {
+    "ciudad_original":"Bucaramanga",
+    "ciudad_canon":"bucaramanga",
+    "departamento_para_ciudad":"santander",
+    "clave_ciudad__departamento":"bucaramanga__santander",
+    "departamento_original":"Santander"
+  },
+  {
+    "ciudad_original":"Buenaventura",
+    "ciudad_canon":"buenaventura",
+    "departamento_para_ciudad":"valle del cauca",
+    "clave_ciudad__departamento":"buenaventura__valle del cauca",
+    "departamento_original":"Valle Del Cauca"
+  },
+  {
+    "ciudad_original":"Bugalagrande",
+    "ciudad_canon":"bugalagrande",
+    "departamento_para_ciudad":"valle del cauca",
+    "clave_ciudad__departamento":"bugalagrande__valle del cauca",
+    "departamento_original":"Valle Del Cauca"
+  },
+  {
+    "ciudad_original":"Caicedonia",
+    "ciudad_canon":"caicedonia",
+    "departamento_para_ciudad":"valle del cauca",
+    "clave_ciudad__departamento":"caicedonia__valle del cauca",
+    "departamento_original":"Valle Del Cauca"
+  },
+  {
+    "ciudad_original":"Cajica",
+    "ciudad_canon":"cajica",
+    "departamento_para_ciudad":"cundinamarca",
+    "clave_ciudad__departamento":"cajica__cundinamarca",
+    "departamento_original":"Cundinamarca"
+  },
+  {
+    "ciudad_original":"Caldas",
+    "ciudad_canon":"caldas",
+    "departamento_para_ciudad":"antioquia",
+    "clave_ciudad__departamento":"caldas__antioquia",
+    "departamento_original":"Antioquia"
+  },
+  {
+    "ciudad_original":"Cali",
+    "ciudad_canon":"cali",
+    "departamento_para_ciudad":"valle del cauca",
+    "clave_ciudad__departamento":"cali__valle del cauca",
+    "departamento_original":"Valle Del Cauca"
+  },
+  {
+    "ciudad_original":"Canasgordas",
+    "ciudad_canon":"canasgordas",
+    "departamento_para_ciudad":"antioquia",
+    "clave_ciudad__departamento":"canasgordas__antioquia",
+    "departamento_original":"Antioquia"
+  },
+  {
+    "ciudad_original":"Candelaria",
+    "ciudad_canon":"candelaria",
+    "departamento_para_ciudad":"valle del cauca",
+    "clave_ciudad__departamento":"candelaria__valle del cauca",
+    "departamento_original":"Valle Del Cauca"
+  },
+  {
+    "ciudad_original":"Carepa",
+    "ciudad_canon":"carepa",
+    "departamento_para_ciudad":"antioquia",
+    "clave_ciudad__departamento":"carepa__antioquia",
+    "departamento_original":"Antioquia"
+  },
+  {
+    "ciudad_original":"Cartagena",
+    "ciudad_canon":"cartagena",
+    "departamento_para_ciudad":"bolivar",
+    "clave_ciudad__departamento":"cartagena__bolivar",
+    "departamento_original":"Bolivar"
+  },
+  {
+    "ciudad_original":"Cartago",
+    "ciudad_canon":"cartago",
+    "departamento_para_ciudad":"valle del cauca",
+    "clave_ciudad__departamento":"cartago__valle del cauca",
+    "departamento_original":"Valle Del Cauca"
+  },
+  {
+    "ciudad_original":"Caucasia",
+    "ciudad_canon":"caucasia",
+    "departamento_para_ciudad":"antioquia",
+    "clave_ciudad__departamento":"caucasia__antioquia",
+    "departamento_original":"Antioquia"
+  },
+  {
+    "ciudad_original":"Chia",
+    "ciudad_canon":"chia",
+    "departamento_para_ciudad":"cundinamarca",
+    "clave_ciudad__departamento":"chia__cundinamarca",
+    "departamento_original":"Cundinamarca"
+  },
+  {
+    "ciudad_original":"Cocorna",
+    "ciudad_canon":"cocorna",
+    "departamento_para_ciudad":"antioquia",
+    "clave_ciudad__departamento":"cocorna__antioquia",
+    "departamento_original":"Antioquia"
+  },
+  {
+    "ciudad_original":"Cogua",
+    "ciudad_canon":"cogua",
+    "departamento_para_ciudad":"cundinamarca",
+    "clave_ciudad__departamento":"cogua__cundinamarca",
+    "departamento_original":"Cundinamarca"
+  },
+  {
+    "ciudad_original":"Copacabana",
+    "ciudad_canon":"copacabana",
+    "departamento_para_ciudad":"antioquia",
+    "clave_ciudad__departamento":"copacabana__antioquia",
+    "departamento_original":"Antioquia"
+  },
+  {
+    "ciudad_original":"Cota",
+    "ciudad_canon":"cota",
+    "departamento_para_ciudad":"cundinamarca",
+    "clave_ciudad__departamento":"cota__cundinamarca",
+    "departamento_original":"Cundinamarca"
+  },
+  {
+    "ciudad_original":"Dagua",
+    "ciudad_canon":"dagua",
+    "departamento_para_ciudad":"valle del cauca",
+    "clave_ciudad__departamento":"dagua__valle del cauca",
+    "departamento_original":"Valle Del Cauca"
+  },
+  {
+    "ciudad_original":"Dosquebradas",
+    "ciudad_canon":"dosquebradas",
+    "departamento_para_ciudad":"risaralda",
+    "clave_ciudad__departamento":"dosquebradas__risaralda",
+    "departamento_original":"Risaralda"
+  },
+  {
+    "ciudad_original":"Duitama",
+    "ciudad_canon":"duitama",
+    "departamento_para_ciudad":"boyaca",
+    "clave_ciudad__departamento":"duitama__boyaca",
+    "departamento_original":"Boyaca"
+  },
+  {
+    "ciudad_original":"El Carmen De Viboral",
+    "ciudad_canon":"el carmen viboral",
+    "departamento_para_ciudad":"antioquia",
+    "clave_ciudad__departamento":"el carmen viboral__antioquia",
+    "departamento_original":"Antioquia"
+  },
+  {
+    "ciudad_original":"El Cerrito",
+    "ciudad_canon":"el cerrito",
+    "departamento_para_ciudad":"valle del cauca",
+    "clave_ciudad__departamento":"el cerrito__valle del cauca",
+    "departamento_original":"Valle Del Cauca"
+  },
+  {
+    "ciudad_original":"El Colegio",
+    "ciudad_canon":"el colegio",
+    "departamento_para_ciudad":"cundinamarca",
+    "clave_ciudad__departamento":"el colegio__cundinamarca",
+    "departamento_original":"Cundinamarca"
+  },
+  {
+    "ciudad_original":"El Rosal",
+    "ciudad_canon":"el rosal",
+    "departamento_para_ciudad":"cundinamarca",
+    "clave_ciudad__departamento":"el rosal__cundinamarca",
+    "departamento_original":"Cundinamarca"
+  },
+  {
+    "ciudad_original":"El Santuario",
+    "ciudad_canon":"el santuario",
+    "departamento_para_ciudad":"antioquia",
+    "clave_ciudad__departamento":"el santuario__antioquia",
+    "departamento_original":"Antioquia"
+  },
+  {
+    "ciudad_original":"Envigado",
+    "ciudad_canon":"envigado",
+    "departamento_para_ciudad":"antioquia",
+    "clave_ciudad__departamento":"envigado__antioquia",
+    "departamento_original":"Antioquia"
+  },
+  {
+    "ciudad_original":"Espinal",
+    "ciudad_canon":"espinal",
+    "departamento_para_ciudad":"tolima",
+    "clave_ciudad__departamento":"espinal__tolima",
+    "departamento_original":"Tolima"
+  },
+  {
+    "ciudad_original":"Facatativa",
+    "ciudad_canon":"facatativa",
+    "departamento_para_ciudad":"cundinamarca",
+    "clave_ciudad__departamento":"facatativa__cundinamarca",
+    "departamento_original":"Cundinamarca"
+  },
+  {
+    "ciudad_original":"Florencia",
+    "ciudad_canon":"florencia",
+    "departamento_para_ciudad":"caqueta",
+    "clave_ciudad__departamento":"florencia__caqueta",
+    "departamento_original":"Caqueta"
+  },
+  {
+    "ciudad_original":"Florida",
+    "ciudad_canon":"florida",
+    "departamento_para_ciudad":"valle del cauca",
+    "clave_ciudad__departamento":"florida__valle del cauca",
+    "departamento_original":"Valle Del Cauca"
+  },
+  {
+    "ciudad_original":"Floridablanca",
+    "ciudad_canon":"floridablanca",
+    "departamento_para_ciudad":"santander",
+    "clave_ciudad__departamento":"floridablanca__santander",
+    "departamento_original":"Santander"
+  },
+  {
+    "ciudad_original":"Fredonia",
+    "ciudad_canon":"fredonia",
+    "departamento_para_ciudad":"antioquia",
+    "clave_ciudad__departamento":"fredonia__antioquia",
+    "departamento_original":"Antioquia"
+  },
+  {
+    "ciudad_original":"Funza",
+    "ciudad_canon":"funza",
+    "departamento_para_ciudad":"cundinamarca",
+    "clave_ciudad__departamento":"funza__cundinamarca",
+    "departamento_original":"Cundinamarca"
+  },
+  {
+    "ciudad_original":"Fusagasuga",
+    "ciudad_canon":"fusagasuga",
+    "departamento_para_ciudad":"cundinamarca",
+    "clave_ciudad__departamento":"fusagasuga__cundinamarca",
+    "departamento_original":"Cundinamarca"
+  },
+  {
+    "ciudad_original":"Gacheta",
+    "ciudad_canon":"gacheta",
+    "departamento_para_ciudad":"cundinamarca",
+    "clave_ciudad__departamento":"gacheta__cundinamarca",
+    "departamento_original":"Cundinamarca"
+  },
+  {
+    "ciudad_original":"Galapa",
+    "ciudad_canon":"galapa",
+    "departamento_para_ciudad":"atlantico",
+    "clave_ciudad__departamento":"galapa__atlantico",
+    "departamento_original":"Atlantico"
+  },
+  {
+    "ciudad_original":"Garzon",
+    "ciudad_canon":"garzon",
+    "departamento_para_ciudad":"huila",
+    "clave_ciudad__departamento":"garzon__huila",
+    "departamento_original":"Huila"
+  },
+  {
+    "ciudad_original":"Ginebra",
+    "ciudad_canon":"ginebra",
+    "departamento_para_ciudad":"valle del cauca",
+    "clave_ciudad__departamento":"ginebra__valle del cauca",
+    "departamento_original":"Valle Del Cauca"
+  },
+  {
+    "ciudad_original":"Girardot",
+    "ciudad_canon":"girardot",
+    "departamento_para_ciudad":"cundinamarca",
+    "clave_ciudad__departamento":"girardot__cundinamarca",
+    "departamento_original":"Cundinamarca"
+  },
+  {
+    "ciudad_original":"Girardota",
+    "ciudad_canon":"girardota",
+    "departamento_para_ciudad":"antioquia",
+    "clave_ciudad__departamento":"girardota__antioquia",
+    "departamento_original":"Antioquia"
+  },
+  {
+    "ciudad_original":"Giron",
+    "ciudad_canon":"giron",
+    "departamento_para_ciudad":"santander",
+    "clave_ciudad__departamento":"giron__santander",
+    "departamento_original":"Santander"
+  },
+  {
+    "ciudad_original":"Granada",
+    "ciudad_canon":"granada",
+    "departamento_para_ciudad":"antioquia",
+    "clave_ciudad__departamento":"granada__antioquia",
+    "departamento_original":"Antioquia"
+  },
+  {
+    "ciudad_original":"Guadalajara De Buga",
+    "ciudad_canon":"guadalajara buga",
+    "departamento_para_ciudad":"valle del cauca",
+    "clave_ciudad__departamento":"guadalajara buga__valle del cauca",
+    "departamento_original":"Valle Del Cauca"
+  },
+  {
+    "ciudad_original":"Guadalupe",
+    "ciudad_canon":"guadalupe",
+    "departamento_para_ciudad":"santander",
+    "clave_ciudad__departamento":"guadalupe__santander",
+    "departamento_original":"Santander"
+  },
+  {
+    "ciudad_original":"Guaduas",
+    "ciudad_canon":"guaduas",
+    "departamento_para_ciudad":"cundinamarca",
+    "clave_ciudad__departamento":"guaduas__cundinamarca",
+    "departamento_original":"Cundinamarca"
+  },
+  {
+    "ciudad_original":"Guarne",
+    "ciudad_canon":"guarne",
+    "departamento_para_ciudad":"antioquia",
+    "clave_ciudad__departamento":"guarne__antioquia",
+    "departamento_original":"Antioquia"
+  },
+  {
+    "ciudad_original":"Guasca",
+    "ciudad_canon":"guasca",
+    "departamento_para_ciudad":"cundinamarca",
+    "clave_ciudad__departamento":"guasca__cundinamarca",
+    "departamento_original":"Cundinamarca"
+  },
+  {
+    "ciudad_original":"Ibague",
+    "ciudad_canon":"ibague",
+    "departamento_para_ciudad":"tolima",
+    "clave_ciudad__departamento":"ibague__tolima",
+    "departamento_original":"Tolima"
+  },
+  {
+    "ciudad_original":"Itagui",
+    "ciudad_canon":"itagui",
+    "departamento_para_ciudad":"antioquia",
+    "clave_ciudad__departamento":"itagui__antioquia",
+    "departamento_original":"Antioquia"
+  },
+  {
+    "ciudad_original":"Jamundi",
+    "ciudad_canon":"jamundi",
+    "departamento_para_ciudad":"valle del cauca",
+    "clave_ciudad__departamento":"jamundi__valle del cauca",
+    "departamento_original":"Valle Del Cauca"
+  },
+  {
+    "ciudad_original":"La Calera",
+    "ciudad_canon":"la calera",
+    "departamento_para_ciudad":"cundinamarca",
+    "clave_ciudad__departamento":"la calera__cundinamarca",
+    "departamento_original":"Cundinamarca"
+  },
+  {
+    "ciudad_original":"La Ceja",
+    "ciudad_canon":"la ceja",
+    "departamento_para_ciudad":"antioquia",
+    "clave_ciudad__departamento":"la ceja__antioquia",
+    "departamento_original":"Antioquia"
+  },
+  {
+    "ciudad_original":"La Estrella",
+    "ciudad_canon":"la estrella",
+    "departamento_para_ciudad":"antioquia",
+    "clave_ciudad__departamento":"la estrella__antioquia",
+    "departamento_original":"Antioquia"
+  },
+  {
+    "ciudad_original":"La Mesa",
+    "ciudad_canon":"la mesa",
+    "departamento_para_ciudad":"cundinamarca",
+    "clave_ciudad__departamento":"la mesa__cundinamarca",
+    "departamento_original":"Cundinamarca"
+  },
+  {
+    "ciudad_original":"La Union",
+    "ciudad_canon":"la union",
+    "departamento_para_ciudad":"valle del cauca",
+    "clave_ciudad__departamento":"la union__valle del cauca",
+    "departamento_original":"Valle Del Cauca"
+  },
+  {
+    "ciudad_original":"La Vega",
+    "ciudad_canon":"la vega",
+    "departamento_para_ciudad":"cundinamarca",
+    "clave_ciudad__departamento":"la vega__cundinamarca",
+    "departamento_original":"Cundinamarca"
+  },
+  {
+    "ciudad_original":"Lebrija",
+    "ciudad_canon":"lebrija",
+    "departamento_para_ciudad":"santander",
+    "clave_ciudad__departamento":"lebrija__santander",
+    "departamento_original":"Santander"
+  },
+  {
+    "ciudad_original":"Madrid",
+    "ciudad_canon":"madrid",
+    "departamento_para_ciudad":"cundinamarca",
+    "clave_ciudad__departamento":"madrid__cundinamarca",
+    "departamento_original":"Cundinamarca"
+  },
+  {
+    "ciudad_original":"Malambo",
+    "ciudad_canon":"malambo",
+    "departamento_para_ciudad":"atlantico",
+    "clave_ciudad__departamento":"malambo__atlantico",
+    "departamento_original":"Atlantico"
+  },
+  {
+    "ciudad_original":"Manizales",
+    "ciudad_canon":"manizales",
+    "departamento_para_ciudad":"caldas",
+    "clave_ciudad__departamento":"manizales__caldas",
+    "departamento_original":"Caldas"
+  },
+  {
+    "ciudad_original":"Marinilla",
+    "ciudad_canon":"marinilla",
+    "departamento_para_ciudad":"antioquia",
+    "clave_ciudad__departamento":"marinilla__antioquia",
+    "departamento_original":"Antioquia"
+  },
+  {
+    "ciudad_original":"Medellin",
+    "ciudad_canon":"medellin",
+    "departamento_para_ciudad":"antioquia",
+    "clave_ciudad__departamento":"medellin__antioquia",
+    "departamento_original":"Antioquia"
+  },
+  {
+    "ciudad_original":"Monteria",
+    "ciudad_canon":"monteria",
+    "departamento_para_ciudad":"cordoba",
+    "clave_ciudad__departamento":"monteria__cordoba",
+    "departamento_original":"Cordoba"
+  },
+  {
+    "ciudad_original":"Mosquera",
+    "ciudad_canon":"mosquera",
+    "departamento_para_ciudad":"cundinamarca",
+    "clave_ciudad__departamento":"mosquera__cundinamarca",
+    "departamento_original":"Cundinamarca"
+  },
+  {
+    "ciudad_original":"Mutata",
+    "ciudad_canon":"mutata",
+    "departamento_para_ciudad":"antioquia",
+    "clave_ciudad__departamento":"mutata__antioquia",
+    "departamento_original":"Antioquia"
+  },
+  {
+    "ciudad_original":"Neiva",
+    "ciudad_canon":"neiva",
+    "departamento_para_ciudad":"huila",
+    "clave_ciudad__departamento":"neiva__huila",
+    "departamento_original":"Huila"
+  },
+  {
+    "ciudad_original":"Pacho",
+    "ciudad_canon":"pacho",
+    "departamento_para_ciudad":"cundinamarca",
+    "clave_ciudad__departamento":"pacho__cundinamarca",
+    "departamento_original":"Cundinamarca"
+  },
+  {
+    "ciudad_original":"Palmar De Varela",
+    "ciudad_canon":"palmar varela",
+    "departamento_para_ciudad":"atlantico",
+    "clave_ciudad__departamento":"palmar varela__atlantico",
+    "departamento_original":"Atlantico"
+  },
+  {
+    "ciudad_original":"Palmira",
+    "ciudad_canon":"palmira",
+    "departamento_para_ciudad":"valle del cauca",
+    "clave_ciudad__departamento":"palmira__valle del cauca",
+    "departamento_original":"Valle Del Cauca"
+  },
+  {
+    "ciudad_original":"Pasto",
+    "ciudad_canon":"pasto",
+    "departamento_para_ciudad":"narino",
+    "clave_ciudad__departamento":"pasto__narino",
+    "departamento_original":"Narino"
+  },
+  {
+    "ciudad_original":"Penol",
+    "ciudad_canon":"penol",
+    "departamento_para_ciudad":"antioquia",
+    "clave_ciudad__departamento":"penol__antioquia",
+    "departamento_original":"Antioquia"
+  },
+  {
+    "ciudad_original":"Pereira",
+    "ciudad_canon":"pereira",
+    "departamento_para_ciudad":"risaralda",
+    "clave_ciudad__departamento":"pereira__risaralda",
+    "departamento_original":"Risaralda"
+  },
+  {
+    "ciudad_original":"Piedecuesta",
+    "ciudad_canon":"piedecuesta",
+    "departamento_para_ciudad":"santander",
+    "clave_ciudad__departamento":"piedecuesta__santander",
+    "departamento_original":"Santander"
+  },
+  {
+    "ciudad_original":"Pitalito",
+    "ciudad_canon":"pitalito",
+    "departamento_para_ciudad":"huila",
+    "clave_ciudad__departamento":"pitalito__huila",
+    "departamento_original":"Huila"
+  },
+  {
+    "ciudad_original":"Polonuevo",
+    "ciudad_canon":"polonuevo",
+    "departamento_para_ciudad":"atlantico",
+    "clave_ciudad__departamento":"polonuevo__atlantico",
+    "departamento_original":"Atlantico"
+  },
+  {
+    "ciudad_original":"Ponedera",
+    "ciudad_canon":"ponedera",
+    "departamento_para_ciudad":"atlantico",
+    "clave_ciudad__departamento":"ponedera__atlantico",
+    "departamento_original":"Atlantico"
+  },
+  {
+    "ciudad_original":"Pradera",
+    "ciudad_canon":"pradera",
+    "departamento_para_ciudad":"valle del cauca",
+    "clave_ciudad__departamento":"pradera__valle del cauca",
+    "departamento_original":"Valle Del Cauca"
+  },
+  {
+    "ciudad_original":"Puerto Colombia",
+    "ciudad_canon":"puerto colombia",
+    "departamento_para_ciudad":"atlantico",
+    "clave_ciudad__departamento":"puerto colombia__atlantico",
+    "departamento_original":"Atlantico"
+  },
+  {
+    "ciudad_original":"Ricaurte",
+    "ciudad_canon":"ricaurte",
+    "departamento_para_ciudad":"cundinamarca",
+    "clave_ciudad__departamento":"ricaurte__cundinamarca",
+    "departamento_original":"Cundinamarca"
+  },
+  {
+    "ciudad_original":"Rionegro",
+    "ciudad_canon":"rionegro",
+    "departamento_para_ciudad":"antioquia",
+    "clave_ciudad__departamento":"rionegro__antioquia",
+    "departamento_original":"Antioquia"
+  },
+  {
+    "ciudad_original":"Rionegro",
+    "ciudad_canon":"rionegro",
+    "departamento_para_ciudad":"santander",
+    "clave_ciudad__departamento":"rionegro__santander",
+    "departamento_original":"Santander"
+  },
+  {
+    "ciudad_original":"Sabana De Torres",
+    "ciudad_canon":"sabana torres",
+    "departamento_para_ciudad":"santander",
+    "clave_ciudad__departamento":"sabana torres__santander",
+    "departamento_original":"Santander"
+  },
+  {
+    "ciudad_original":"Sabaneta",
+    "ciudad_canon":"sabaneta",
+    "departamento_para_ciudad":"antioquia",
+    "clave_ciudad__departamento":"sabaneta__antioquia",
+    "departamento_original":"Antioquia"
+  },
+  {
+    "ciudad_original":"San Agustin",
+    "ciudad_canon":"san agustin",
+    "departamento_para_ciudad":"huila",
+    "clave_ciudad__departamento":"san agustin__huila",
+    "departamento_original":"Huila"
+  },
+  {
+    "ciudad_original":"San Gil",
+    "ciudad_canon":"san gil",
+    "departamento_para_ciudad":"santander",
+    "clave_ciudad__departamento":"san gil__santander",
+    "departamento_original":"Santander"
+  },
+  {
+    "ciudad_original":"San Juan De Rio Seco",
+    "ciudad_canon":"san juan rio seco",
+    "departamento_para_ciudad":"cundinamarca",
+    "clave_ciudad__departamento":"san juan rio seco__cundinamarca",
+    "departamento_original":"Cundinamarca"
+  },
+  {
+    "ciudad_original":"San Pedro De Uraba",
+    "ciudad_canon":"san pedro uraba",
+    "departamento_para_ciudad":"antioquia",
+    "clave_ciudad__departamento":"san pedro uraba__antioquia",
+    "departamento_original":"Antioquia"
+  },
+  {
+    "ciudad_original":"San Vicente De Chucuri",
+    "ciudad_canon":"san vicente chucuri",
+    "departamento_para_ciudad":"santander",
+    "clave_ciudad__departamento":"san vicente chucuri__santander",
+    "departamento_original":"Santander"
+  },
+  {
+    "ciudad_original":"Santa Marta",
+    "ciudad_canon":"santa marta",
+    "departamento_para_ciudad":"magdalena",
+    "clave_ciudad__departamento":"santa marta__magdalena",
+    "departamento_original":"Magdalena"
+  },
+  {
+    "ciudad_original":"Santa Rosa De Cabal",
+    "ciudad_canon":"santa rosa de cabal",
+    "departamento_para_ciudad":"risaralda",
+    "clave_ciudad__departamento":"santa rosa de cabal__risaralda",
+    "departamento_original":"Risaralda"
+  },
+  {
+    "ciudad_original":"Santo Tomas",
+    "ciudad_canon":"santo tomas",
+    "departamento_para_ciudad":"atlantico",
+    "clave_ciudad__departamento":"santo tomas__atlantico",
+    "departamento_original":"Atlantico"
+  },
+  {
+    "ciudad_original":"Segovia",
+    "ciudad_canon":"segovia",
+    "departamento_para_ciudad":"antioquia",
+    "clave_ciudad__departamento":"segovia__antioquia",
+    "departamento_original":"Antioquia"
+  },
+  {
+    "ciudad_original":"Sevilla",
+    "ciudad_canon":"sevilla",
+    "departamento_para_ciudad":"valle del cauca",
+    "clave_ciudad__departamento":"sevilla__valle del cauca",
+    "departamento_original":"Valle Del Cauca"
+  },
+  {
+    "ciudad_original":"Sibate",
+    "ciudad_canon":"sibate",
+    "departamento_para_ciudad":"cundinamarca",
+    "clave_ciudad__departamento":"sibate__cundinamarca",
+    "departamento_original":"Cundinamarca"
+  },
+  {
+    "ciudad_original":"Silvania",
+    "ciudad_canon":"silvania",
+    "departamento_para_ciudad":"cundinamarca",
+    "clave_ciudad__departamento":"silvania__cundinamarca",
+    "departamento_original":"Cundinamarca"
+  },
+  {
+    "ciudad_original":"Soacha",
+    "ciudad_canon":"soacha",
+    "departamento_para_ciudad":"cundinamarca",
+    "clave_ciudad__departamento":"soacha__cundinamarca",
+    "departamento_original":"Cundinamarca"
+  },
+  {
+    "ciudad_original":"Socorro",
+    "ciudad_canon":"socorro",
+    "departamento_para_ciudad":"santander",
+    "clave_ciudad__departamento":"socorro__santander",
+    "departamento_original":"Santander"
+  },
+  {
+    "ciudad_original":"Sogamoso",
+    "ciudad_canon":"sogamoso",
+    "departamento_para_ciudad":"boyaca",
+    "clave_ciudad__departamento":"sogamoso__boyaca",
+    "departamento_original":"Boyaca"
+  },
+  {
+    "ciudad_original":"Soledad",
+    "ciudad_canon":"soledad",
+    "departamento_para_ciudad":"atlantico",
+    "clave_ciudad__departamento":"soledad__atlantico",
+    "departamento_original":"Atlantico"
+  },
+  {
+    "ciudad_original":"Sopo",
+    "ciudad_canon":"sopo",
+    "departamento_para_ciudad":"cundinamarca",
+    "clave_ciudad__departamento":"sopo__cundinamarca",
+    "departamento_original":"Cundinamarca"
+  },
+  {
+    "ciudad_original":"Suan",
+    "ciudad_canon":"suan",
+    "departamento_para_ciudad":"atlantico",
+    "clave_ciudad__departamento":"suan__atlantico",
+    "departamento_original":"Atlantico"
+  },
+  {
+    "ciudad_original":"Tabio",
+    "ciudad_canon":"tabio",
+    "departamento_para_ciudad":"cundinamarca",
+    "clave_ciudad__departamento":"tabio__cundinamarca",
+    "departamento_original":"Cundinamarca"
+  },
+  {
+    "ciudad_original":"Tamesis",
+    "ciudad_canon":"tamesis",
+    "departamento_para_ciudad":"antioquia",
+    "clave_ciudad__departamento":"tamesis__antioquia",
+    "departamento_original":"Antioquia"
+  },
+  {
+    "ciudad_original":"Tenjo",
+    "ciudad_canon":"tenjo",
+    "departamento_para_ciudad":"cundinamarca",
+    "clave_ciudad__departamento":"tenjo__cundinamarca",
+    "departamento_original":"Cundinamarca"
+  },
+  {
+    "ciudad_original":"Tocancipa",
+    "ciudad_canon":"tocancipa",
+    "departamento_para_ciudad":"cundinamarca",
+    "clave_ciudad__departamento":"tocancipa__cundinamarca",
+    "departamento_original":"Cundinamarca"
+  },
+  {
+    "ciudad_original":"Trujillo",
+    "ciudad_canon":"trujillo",
+    "departamento_para_ciudad":"valle del cauca",
+    "clave_ciudad__departamento":"trujillo__valle del cauca",
+    "departamento_original":"Valle Del Cauca"
+  },
+  {
+    "ciudad_original":"Tulua",
+    "ciudad_canon":"tulua",
+    "departamento_para_ciudad":"valle del cauca",
+    "clave_ciudad__departamento":"tulua__valle del cauca",
+    "departamento_original":"Valle Del Cauca"
+  },
+  {
+    "ciudad_original":"San Andres De Tumaco",
+    "ciudad_canon":"tumaco",
+    "departamento_para_ciudad":"narino",
+    "clave_ciudad__departamento":"tumaco__narino",
+    "departamento_original":"Narino"
+  },
+  {
+    "ciudad_original":"Tunja",
+    "ciudad_canon":"tunja",
+    "departamento_para_ciudad":"boyaca",
+    "clave_ciudad__departamento":"tunja__boyaca",
+    "departamento_original":"Boyaca"
+  },
+  {
+    "ciudad_original":"Vijes",
+    "ciudad_canon":"vijes",
+    "departamento_para_ciudad":"valle del cauca",
+    "clave_ciudad__departamento":"vijes__valle del cauca",
+    "departamento_original":"Valle Del Cauca"
+  },
+  {
+    "ciudad_original":"Villa De San Diego De Ubate",
+    "ciudad_canon":"villa san diego ubate",
+    "departamento_para_ciudad":"cundinamarca",
+    "clave_ciudad__departamento":"villa san diego ubate__cundinamarca",
+    "departamento_original":"Cundinamarca"
+  },
+  {
+    "ciudad_original":"Villavicencio",
+    "ciudad_canon":"villavicencio",
+    "departamento_para_ciudad":"meta",
+    "clave_ciudad__departamento":"villavicencio__meta",
+    "departamento_original":"Meta"
+  },
+  {
+    "ciudad_original":"Villeta",
+    "ciudad_canon":"villeta",
+    "departamento_para_ciudad":"cundinamarca",
+    "clave_ciudad__departamento":"villeta__cundinamarca",
+    "departamento_original":"Cundinamarca"
+  },
+  {
+    "ciudad_original":"Viota",
+    "ciudad_canon":"viota",
+    "departamento_para_ciudad":"cundinamarca",
+    "clave_ciudad__departamento":"viota__cundinamarca",
+    "departamento_original":"Cundinamarca"
+  },
+  {
+    "ciudad_original":"Yarumal",
+    "ciudad_canon":"yarumal",
+    "departamento_para_ciudad":"antioquia",
+    "clave_ciudad__departamento":"yarumal__antioquia",
+    "departamento_original":"Antioquia"
+  },
+  {
+    "ciudad_original":"Yondo",
+    "ciudad_canon":"yondo",
+    "departamento_para_ciudad":"antioquia",
+    "clave_ciudad__departamento":"yondo__antioquia",
+    "departamento_original":"Antioquia"
+  },
+  {
+    "ciudad_original":"Yopal",
+    "ciudad_canon":"yopal",
+    "departamento_para_ciudad":"casanare",
+    "clave_ciudad__departamento":"yopal__casanare",
+    "departamento_original":"Casanare"
+  },
+  {
+    "ciudad_original":"Yumbo",
+    "ciudad_canon":"yumbo",
+    "departamento_para_ciudad":"valle del cauca",
+    "clave_ciudad__departamento":"yumbo__valle del cauca",
+    "departamento_original":"Valle Del Cauca"
+  },
+  {
+    "ciudad_original":"Zarzal",
+    "ciudad_canon":"zarzal",
+    "departamento_para_ciudad":"valle del cauca",
+    "clave_ciudad__departamento":"zarzal__valle del cauca",
+    "departamento_original":"Valle Del Cauca"
+  },
+  {
+    "ciudad_original":"Zipaquira",
+    "ciudad_canon":"zipaquira",
+    "departamento_para_ciudad":"cundinamarca",
+    "clave_ciudad__departamento":"zipaquira__cundinamarca",
+    "departamento_original":"Cundinamarca"
+  }
+]
