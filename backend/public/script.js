@@ -11,6 +11,28 @@ let nivelMapa = 'departamento'; // controlado desde index.html
 /* Loaders / Abort por sección */
 const aborts  = { kpis: null, series: null, mapa: null };
 const loaders = { kpis: null, series: null, mapa: null };
+// Versión de datos para invalidar caché del navegador cuando subas nuevos archivos
+const GEO_VERSION = "v1";         // si reemplazas los .geojson, súbelo a "v2"
+const LSCACHE_DAYS = 30;          // persistencia en localStorage
+const LSCACHE_TTL = LSCACHE_DAYS * 24 * 60 * 60 * 1000;
+
+function lsGetJSON(key) {
+  try {
+    const raw = localStorage.getItem(key);
+    if (!raw) return null;
+    const obj = JSON.parse(raw);
+    if (!obj || !obj.t || !obj.v) return null;
+    if (obj.v !== GEO_VERSION) return null;
+    if (Date.now() - obj.t > LSCACHE_TTL) return null;
+    return obj.data ?? null;
+  } catch { return null; }
+}
+function lsSetJSON(key, data) {
+  try {
+    localStorage.setItem(key, JSON.stringify({ v: GEO_VERSION, t: Date.now(), data }));
+  } catch {}
+}
+
 
 /* Cache simple con TTL */
 const cache = new Map();
@@ -135,22 +157,41 @@ function setKPILoading(on = true) {
 }
 
 /* =================== GeoJSON local (cacheado) =================== */
-async function cargarGeoJSON() {
-  try {
-    if (!geoDeptos) {
-      const resD = await cachedFetch(URL_DEPTOS, {}, 24*60*60*1000);
-      if (!resD.ok) throw new Error(`No se pudo cargar ${URL_DEPTOS}`);
-      geoDeptos = await resD.json();
+async function cargarGeoJSON(nivelWanted = 'departamento') {
+  // Solo descarga lo que hace falta
+  const needDept = (nivelWanted === 'departamento' && !geoDeptos);
+  const needCity = (nivelWanted === 'ciudad'        && !geoCiudades);
+
+  // Nada que hacer
+  if (!needDept && !needCity) return;
+
+  async function fetchAndMaybeTopo(kind, url) {
+    // 1) localStorage primero
+    const lsKey = `geo:${kind}`;
+    const fromLS = lsGetJSON(lsKey);
+    if (fromLS) return fromLS;
+
+    // 2) red (usa tu cachedFetch con reintentos)
+    const res = await cachedFetch(url, {}, 24 * 60 * 60 * 1000);
+    const text = await res.text();
+
+    // 3) Detecta TopoJSON (si algún día sirves .topo.json)
+    let data = JSON.parse(text);
+    if (data && data.type === 'Topology' && window.topojson && typeof window.topojson.feature === 'function') {
+      // si usas TopoJSON, asume que el objeto se llama 'collection' (ajústalo a tu nombre real)
+      const objName = Object.keys(data.objects)[0];
+      data = window.topojson.feature(data, data.objects[objName]);
     }
-    if (!geoCiudades) {
-      const resC = await cachedFetch(URL_CIUDADES, {}, 24*60*60*1000);
-      if (!resC.ok) throw new Error(`No se pudo cargar ${URL_CIUDADES}`);
-      geoCiudades = await resC.json();
-    }
-  } catch (e) {
-    console.error("Error cargando GeoJSON locales:", e);
+
+    // guarda en localStorage
+    lsSetJSON(lsKey, data);
+    return data;
   }
+
+  if (needDept)   geoDeptos   = await fetchAndMaybeTopo('dept',   URL_DEPTOS);
+  if (needCity)   geoCiudades = await fetchAndMaybeTopo('city',   URL_CIUDADES);
 }
+
 
 /* =================== Filtros =================== */
 async function cargarFiltros() {
@@ -388,16 +429,32 @@ function crearLeyenda(max, titulo = "Ventas") {
 /* Render por chunks para fluidez */
 function addGeoJSONChunked(base, options, onProgress, done) {
   const feats = (base && base.features) ? base.features : [];
-  if (!feats.length) { if (done) done(null); return; }
+  if (!feats.length) { if (typeof done === 'function') done(null); return; }
 
-  const group = L.featureGroup().addTo(mapa);
+  // Una sola capa y vamos agregando en trozos (mucho más rápido)
+  const layer = L.geoJSON([], options).addTo(mapa);
+
   let i = 0;
-  const batch = 200;
+  const sliceSize    = 60;  // tamaño de lote (ajusta 40–80 según tu máquina)
+  const frameBudget  = 12;  // ms de trabajo por frame (~60fps)
 
-  // Scheduler seguro: usa rIC con {timeout}, si no rAF, si no setTimeout
+  const hasRIC = typeof window.requestIdleCallback === 'function';
+
+  // Algunas implementaciones (Safari/variantes) no aceptan el 2º parámetro {timeout}
+  const rICSupportsOptions = (() => {
+    if (!hasRIC) return false;
+    try {
+      const id = window.requestIdleCallback(function(){}, { timeout: 0 });
+      if (typeof window.cancelIdleCallback === 'function') window.cancelIdleCallback(id);
+      return true;
+    } catch (_) { return false; }
+  })();
+
   const schedule = (cb) => {
-    if (typeof window.requestIdleCallback === 'function') {
-      return window.requestIdleCallback(() => cb(), { timeout: 60 });
+    if (hasRIC) {
+      return rICSupportsOptions
+        ? window.requestIdleCallback(cb, { timeout: 60 })
+        : window.requestIdleCallback(cb); // sin opciones
     }
     if (typeof window.requestAnimationFrame === 'function') {
       return window.requestAnimationFrame(cb);
@@ -405,18 +462,31 @@ function addGeoJSONChunked(base, options, onProgress, done) {
     return setTimeout(cb, 0);
   };
 
-  function step() {
-    if (i >= feats.length) { if (done) done(group); return; }
-    const end = Math.min(i + batch, feats.length);
-    const slice = feats.slice(i, end);
-    const fc = { type: "FeatureCollection", features: slice };
-    L.geoJSON(fc, options).addTo(group);
-    i = end;
-    if (onProgress) onProgress(i / feats.length);
-    schedule(step);
+  function run(deadline) {
+    const start = (typeof performance !== 'undefined' && performance.now) ? performance.now() : Date.now();
+
+    while (
+      i < feats.length &&
+      (
+        (deadline && typeof deadline.timeRemaining === 'function' && deadline.timeRemaining() > 8) ||
+        (!deadline && (((typeof performance !== 'undefined' && performance.now) ? performance.now() : Date.now()) - start) < frameBudget)
+      )
+    ) {
+      const end = Math.min(i + sliceSize, feats.length);
+      // Añadimos en bloque a la MISMA capa
+      layer.addData({ type: "FeatureCollection", features: feats.slice(i, end) });
+      i = end;
+      if (typeof onProgress === 'function') onProgress(i / feats.length);
+    }
+
+    if (i < feats.length) {
+      schedule(run);
+    } else {
+      if (typeof done === 'function') done(layer);
+    }
   }
 
-  step();
+  schedule(run);
 }
 
 
