@@ -102,27 +102,41 @@ function loadGeoOnce() {
     if (!cityCanon2Official.has(key)) {
       cityCanon2Official.set(key, { city: offCity, dept: offDept });
     }
-    // Si ADM2 trae Bogotá como municipio bajo Bogotá D.C., lo guardamos
+    // Bogotá ADM2
     if (dCanon === BOGOTA_CANON && (cCanon === 'bogota' || cCanon === 'bogota dc' || cCanon === 'bogota d c')) {
       bogotaCityOfficial = offCity;
     }
   }
 
-  // Si por alguna razón no encontramos Bogotá en ADM1, no hardcodeamos: usamos un fallback seguro
+  // Fallbacks
   if (!bogotaDeptOfficial) {
-    // Busca algún nombre que contenga "bogotá" en oficiales
     for (const off of deptCanon2Official.values()) {
       if (canonDept(off).startsWith('bogota')) { bogotaDeptOfficial = off; break; }
     }
-    // último recurso:
     if (!bogotaDeptOfficial) bogotaDeptOfficial = 'Bogotá D.C.';
   }
-
-  // Si ADM2 no trae ciudad Bogotá, al pintar ciudad usaremos el nombre de depto como city oficial (mejor UX)
   if (!bogotaCityOfficial) bogotaCityOfficial = bogotaDeptOfficial;
 
   GEO = { deptCanon2Official, cityCanon2Official, bogotaDeptOfficial, bogotaCityOfficial };
   return GEO;
+}
+
+/* ---------------- Helpers ---------------- */
+function toNumberLoose(x) {
+  // convierte "$ 12.345,67" o "12,345.67" a número
+  const s = String(x ?? '').replace(/[^\d.,-]/g, '').trim();
+  if (!s) return 0;
+  // Si tiene coma y punto, asumimos punto como decimal si va al final
+  if (s.includes(',') && s.includes('.')) {
+    // ej: "12,345.67" -> quita comas de miles
+    return parseFloat(s.replace(/,/g, ''));
+  }
+  // Solo comas -> trátalas como decimales
+  if (s.includes(',') && !s.includes('.')) {
+    return parseFloat(s.replace(/\./g, '').replace(',', '.'));
+  }
+  // Caso estándar con punto decimal o entero
+  return parseFloat(s);
 }
 
 /* ---------------- Filtro a partir de query ---------------- */
@@ -172,32 +186,45 @@ router.get('/', (req, res) => {
     return res.status(404).json({ error: 'ventas_limpias.csv no encontrado' });
   }
 
+  let responded = false;
+
   fs.createReadStream(csvPath)
     .pipe(csv())
     .on('data', (row) => {
       try {
         if (!filtro(row)) return;
 
-        const monto = Number(row.total ?? row.valor_total ?? row.valor ?? 0) || 0;
+        const monto = toNumberLoose(row.total ?? row.valor_total ?? row.valor ?? 0);
 
         // Normaliza y aplica regla Bogotá
         const cityCanon = canonCity(row.ciudad);
         const deptCanon = isBogotaCityCanon(cityCanon) ? BOGOTA_CANON : canonDept(row.departamento);
 
         if (groupBy === 'departamento') {
-          aggDept.set(deptCanon, (aggDept.get(deptCanon) || 0) + monto);
+          aggDept.set(deptCanon, (aggDept.get(deptCanon) || 0) + (monto || 0));
         } else { // 'ciudad' o default
           const key = `${cityCanon}__${deptCanon}`;
-          aggCity.set(key, (aggCity.get(key) || 0) + monto);
+          aggCity.set(key, (aggCity.get(key) || 0) + (monto || 0));
         }
-      } catch (_) { /* ignora fila defectuosa */ }
+      } catch (err) {
+        // ignora fila defectuosa, pero loguea por si hay patrón
+        console.warn('[ventas_mapa] fila inválida:', err?.message || err);
+      }
+    })
+    .on('error', (err) => {
+      if (responded) return;
+      responded = true;
+      console.error('[ventas_mapa] error de lectura CSV:', err);
+      res.status(500).json({ error: 'Error leyendo CSV', detail: String(err) });
     })
     .on('end', () => {
+      if (responded) return;
+      responded = true;
+
       if (groupBy === 'departamento') {
         const out = [];
         for (const [dCanon, total] of aggDept.entries()) {
           let dOff = geo.deptCanon2Official.get(dCanon);
-          // Garantiza que Bogotá siempre salga con el nombre oficial del geo
           if (dCanon === BOGOTA_CANON) dOff = geo.bogotaDeptOfficial;
           if (!dOff) dOff = dCanon;
           out.push({ departamento: dOff, total });
@@ -210,20 +237,17 @@ router.get('/', (req, res) => {
       for (const [key, total] of aggCity.entries()) {
         const [cCanon, dCanon] = key.split('__');
 
-        // Intenta mapping completo ciudad+depto
         const mapping = geo.cityCanon2Official.get(key);
         if (mapping) {
           out.push({ departamento: mapping.dept, ciudad: mapping.city, total });
           continue;
         }
 
-        // Si es Bogotá y no hay feature ADM2, usamos el nombre oficial detectado
         if (dCanon === BOGOTA_CANON && isBogotaCityCanon(cCanon)) {
           out.push({ departamento: geo.bogotaDeptOfficial, ciudad: geo.bogotaCityOfficial, total });
           continue;
         }
 
-        // Fallback genérico: al menos devuelve el dpto oficial si existe
         const dOff = geo.deptCanon2Official.get(dCanon) || dCanon;
         out.push({ departamento: dOff, ciudad: cCanon, total });
       }
@@ -233,4 +257,3 @@ router.get('/', (req, res) => {
 });
 
 module.exports = router;
-
