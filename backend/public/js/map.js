@@ -1,3 +1,4 @@
+// backend/public/js/map.js
 // --- imports (sin getFiltros; lo inyecta main.js) ---
 import {
   cargarGeoJSON,
@@ -20,6 +21,8 @@ let layerPoligonos = null;
 const aborts  = { mapa: null };
 const loaders = { mapa: null };
 
+const DEBUG_GEO = false;
+
 // ====== Helpers locales ======
 function colorScale(value, max) {
   if (!value || value <= 0) return "#9ca3af";
@@ -32,7 +35,16 @@ function colorScale(value, max) {
   if (r <= 0.9)  return "#a855f7";
   return "#c084fc";
 }
-function crearLeyenda(max, titulo = "Ventas") {
+// Mostrar COP en MILLONES
+function formatMoneyM(n, { decimals = 1 } = {}) {
+  const vM = (Number(n) || 0) / 1e6;
+  const sign = vM < 0 ? "-" : "";
+  const abs = Math.abs(vM);
+  const hasDec = abs < 100 ? decimals : 0;
+  const s = abs.toLocaleString("es-CO", { minimumFractionDigits: 0, maximumFractionDigits: hasDec });
+  return `${sign}$${s} M`;
+}
+function crearLeyenda(max, titulo = "Ventas (M COP)") {
   if (mapa && mapa._legendControl) { try { mapa.removeControl(mapa._legendControl); } catch {} mapa._legendControl = null; }
   const stops = [0.0, 0.15, 0.35, 0.55, 0.75, 0.9, 1.0];
   const legend = L.control({ position: "bottomright" });
@@ -64,25 +76,55 @@ function limpiarCapaPoligonos() {
 function addGeoJSONChunked(base, options, onProgress, done) {
   const feats = (base && base.features) ? base.features : [];
   if (!feats.length) { if (typeof done === 'function') done(null); return; }
+
   const layer = L.geoJSON([], options).addTo(mapa);
-  let i = 0; const sliceSize = 120; const frameBudget = 12;
+
+  let i = 0;
+  let sliceSize = 80;
+  const MAX_MS_PER_RUN = 20;
+  const MIN_SLICE = 20;
+  const MAX_SLICE = 160;
+
   const hasRIC = typeof window.requestIdleCallback === 'function';
-  const rICSupportsOptions = (() => { if (!hasRIC) return false; try { const id = window.requestIdleCallback(function(){}, { timeout: 0 }); if (typeof window.cancelIdleCallback === 'function') window.cancelIdleCallback(id); return true; } catch (_) { return false; }})();
-  const schedule = (cb) => hasRIC ? (rICSupportsOptions ? window.requestIdleCallback(cb, { timeout: 60 }) : window.requestIdleCallback(cb))
-                                  : (typeof window.requestAnimationFrame === 'function' ? window.requestAnimationFrame(cb) : setTimeout(cb, 0));
+  const rICSupportsOptions = (() => {
+    if (!hasRIC) return false;
+    try {
+      const id = window.requestIdleCallback(() => {}, { timeout: 0 });
+      if (typeof window.cancelIdleCallback === 'function') window.cancelIdleCallback(id);
+      return true;
+    } catch (_) { return false; }
+  })();
+
+  const schedule = (cb) =>
+    hasRIC ? (rICSupportsOptions ? window.requestIdleCallback(cb, { timeout: 40 }) : window.requestIdleCallback(cb))
+           : (typeof window.requestAnimationFrame === 'function' ? window.requestAnimationFrame(cb) : setTimeout(cb, 0));
+
   function run(deadline) {
     const now = (typeof performance !== 'undefined' && performance.now) ? () => performance.now() : () => Date.now();
     const start = now();
-    while (i < feats.length && ((deadline && typeof deadline.timeRemaining === 'function' && deadline.timeRemaining() > 8) || (!deadline && (now() - start) < frameBudget))) {
+    let softBudget = MAX_MS_PER_RUN;
+    if (deadline && typeof deadline.timeRemaining === 'function') {
+      const tr = deadline.timeRemaining();
+      if (tr < 8 && sliceSize > MIN_SLICE) sliceSize = Math.max(MIN_SLICE, Math.floor(sliceSize * 0.75));
+      softBudget = Math.min(MAX_MS_PER_RUN, Math.max(8, tr - 2));
+    }
+    while (i < feats.length) {
       const end = Math.min(i + sliceSize, feats.length);
       layer.addData({ type: "FeatureCollection", features: feats.slice(i, end) });
       i = end;
       if (typeof onProgress === 'function') onProgress(i / feats.length);
+      const elapsed = now() - start;
+      if (elapsed >= softBudget || elapsed >= MAX_MS_PER_RUN) break;
+      if (elapsed < softBudget * 0.4 && sliceSize < MAX_SLICE) {
+        sliceSize = Math.min(MAX_SLICE, Math.floor(sliceSize * 1.2));
+      }
     }
-    if (i < feats.length) { schedule(run); } else { if (typeof done === 'function') done(layer); }
+    if (i < feats.length) schedule(run); else if (typeof done === 'function') done(layer);
   }
+
   schedule(run);
 }
+
 function repaintExistingLayer(layer, styleFn) {
   if (!layer || typeof layer.eachLayer !== 'function') return false;
   let painted = 0;
@@ -168,6 +210,16 @@ async function withMapaLoader(titulo, fn) {
   }
 }
 
+/** Escala inversión (UI en millones → backend en unidades) */
+function scaleInvMillions(filtros) {
+  const f = { ...filtros };
+  ["inv_meta", "inv_google"].forEach((k) => {
+    const n = Number(f[k]);
+    if (Number.isFinite(n)) f[k] = n * 1_000_000; // × 1e6
+  });
+  return f;
+}
+
 /**
  * Cambia el nivel del mapa con loader de transición.
  * - nuevoNivel: 'departamento' | 'ciudad'
@@ -180,14 +232,17 @@ export async function cambiarNivelConLoader(nuevoNivel, getFiltrosFn) {
     progress?.(0.1, 'Precargando polígonos');
     await cargarGeoJSON(nuevoNivel);
 
-    // Paso 2: recalcular augment en ciudades si aplica
+    // Paso 2: recalcular augment según nivel
     if (nuevoNivel === 'ciudad') {
-      progress?.(0.25, 'Ajustando columnas (shapeName)');
+      progress?.(0.25, 'Ajustando columnas (ciudad)');
       ensureBestCityPropForCoverage(geoCiudades, []); // heurística sin agregados aún
       augmentGeo(geoCiudades, 'ciudad');
+    } else {
+      progress?.(0.25, 'Ajustando columnas (departamento)');
+      augmentGeo(geoDeptos, 'departamento');
     }
 
-    // Paso 3: dibujar coropletas (sin tocar overlay aquí)
+    // Paso 3: dibujar coropletas
     progress?.(0.45, 'Calculando y pintando ventas');
     await renderCoropletas(getFiltrosFn, nuevoNivel, { noLoader: true });
 
@@ -198,14 +253,16 @@ export async function cambiarNivelConLoader(nuevoNivel, getFiltrosFn) {
 
 // ====== helper fetch agregados (usa la query actual) ======
 async function fetchAggregadosPorNivel(nivel, filtros = {}, signal) {
-  const params = new URLSearchParams({ ...filtros, group_by: nivel });
+  // ⬇️ IMPORTANTE: escalar inversión antes de llamar al backend del mapa
+  const filtrosEscalados = scaleInvMillions(filtros);
+  const params = new URLSearchParams({ ...filtrosEscalados, group_by: nivel });
   const res = await cachedFetch(`${api}/ventas/mapa?${params.toString()}`, { signal }, 30*1000);
   const data = await res.json();
   return Array.isArray(data) ? data : [];
 }
 
 // ====== alias para compatibilidad (algunos módulos llaman fetchMapaAggregates) ======
-async function fetchMapaAggregates(nivel, filtros, signal) {
+export async function fetchMapaAggregates(nivel, filtros, signal) {
   return fetchAggregadosPorNivel(nivel, filtros, signal);
 }
 
@@ -230,6 +287,11 @@ export async function renderCoropletas(getFiltrosFn, nivelPreferred, opts = {}) 
     if (!baseFull || !Array.isArray(baseFull.features) || baseFull.features.length === 0) {
       throw new Error("GeoJSON no cargado o vacío");
     }
+    if (nivel === "departamento") augmentGeo(geoDeptos, 'departamento');
+    else {
+      ensureBestCityPropForCoverage(geoCiudades, []); // se recalcula luego con agregados
+      augmentGeo(geoCiudades, 'ciudad');
+    }
     if (signal.aborted) return;
 
     // Agregados del backend
@@ -238,7 +300,7 @@ export async function renderCoropletas(getFiltrosFn, nivelPreferred, opts = {}) 
       agregados = await fetchMapaAggregates(nivel, filtros, signal);
     } catch (e) {
       if (signal.aborted) return;
-      console.warn("No se pudieron cargar agregados del backend:", e);
+      if (DEBUG_GEO) console.warn("No se pudieron cargar agregados del backend:", e);
       agregados = [];
     }
     if (signal.aborted) return;
@@ -306,13 +368,13 @@ export async function renderCoropletas(getFiltrosFn, nivelPreferred, opts = {}) 
           for (const fid of valoresPorShapeID.keys()) {
             if (fidSet.has(String(fid))) ok++; else if (miss.length < 20) miss.push(fid);
           }
-          console.log(`[map] nivel=${nivel} claves_backend=${valoresPorShapeID.size} | match_geo=${ok} | miss-ej:`, miss);
+          if (DEBUG_GEO) console.log(`[map] nivel=${nivel} claves_backend=${valoresPorShapeID.size} | match_geo=${ok} | miss-ej:`, miss);
         } else if (nivel === 'ciudad' && valoresPorCityCanon.size) {
           const citySet = new Set(feats.map(f => canonCity(f?.properties?.__display_city || f?.properties?.shapeName || '')));
           for (const k of valoresPorCityCanon.keys()) {
             if (citySet.has(k)) ok++; else if (miss.length < 20) miss.push(k);
           }
-          console.log(`[map] nivel=${nivel} claves_backend_cityOnly=${valoresPorCityCanon.size} | match_geo=${ok} | miss-ej:`, miss);
+          if (DEBUG_GEO) console.log(`[map] nivel=${nivel} claves_backend_cityOnly=${valoresPorCityCanon.size} | match_geo=${ok} | miss-ej:`, miss);
         } else {
           const featKeys = new Set();
           for (const f of feats) {
@@ -325,14 +387,14 @@ export async function renderCoropletas(getFiltrosFn, nivelPreferred, opts = {}) 
           for (const k of valores.keys()) {
             if (featKeys.has(k)) ok++; else if (miss.length < 20) miss.push(k);
           }
-          console.log(`[map] nivel=${nivel} claves_backend=${valores.size} | match_geo=${ok} | miss-ej:`, miss);
+          if (DEBUG_GEO) console.log(`[map] nivel=${nivel} claves_backend=${valores.size} | match_geo=${ok} | miss-ej:`, miss);
 
           if (nivel === 'ciudad' && ok === 0 && DETECTED_CITY_PROP) {
             console.warn('[map] match_geo=0; re-augment forzado con', DETECTED_CITY_PROP);
             augmentGeo(geoCiudades, 'ciudad');
           }
         }
-      } catch(e) { console.warn('coverageDiag', e); }
+      } catch(e) { if (DEBUG_GEO) console.warn('coverageDiag', e); }
     })();
 
     // ================== Estilo por feature ==================
@@ -345,13 +407,10 @@ export async function renderCoropletas(getFiltrosFn, nivelPreferred, opts = {}) 
       if (nivel === "ciudad") {
         const fid = String(p.shapeID ?? p.__shapeID ?? p.id ?? '');
         if (fid && valoresPorShapeID.size) {
-          // 1) match por shapeID (ideal)
           v = valoresPorShapeID.get(fid) || 0;
         } else if (!dCanon && cCanon) {
-          // 2) feature SIN depto → usa ciudad-sola
           v = valoresPorCityCanon.get(cCanon) || 0;
         } else {
-          // 3) fallback ciudad__depto (si el feature tiene depto calculado)
           const mapKey = (cCanon ? `${cCanon}__${(isBogotaCityCanon(cCanon) ? 'bogota dc' : dCanon)}` : "");
           v = valores.get(mapKey) || 0;
         }
@@ -392,7 +451,8 @@ export async function renderCoropletas(getFiltrosFn, nivelPreferred, opts = {}) 
       }
 
       const title = (nivel === "departamento") ? dDisp : `${cDisp} (${dDisp})`;
-      layer.bindTooltip(`${title}<br><strong>$${Math.round(v).toLocaleString()}</strong>`, { sticky: true });
+      // Tooltip en MILLONES de COP
+      layer.bindTooltip(`${title}<br><strong>${formatMoneyM(v)}</strong>`, { sticky: true });
       layer.on("click", () => { try { mapa.fitBounds(layer.getBounds().pad(0.25)); } catch {} });
       layer.on("mouseover", function () { this.setStyle({ weight: 1.6, color: "#ffffff", fillOpacity: 0.96 }); });
       layer.on("mouseout",  function () { this.setStyle({ weight: 0.9, color: "#0f172a", fillOpacity: 0.92 }); });
@@ -401,7 +461,7 @@ export async function renderCoropletas(getFiltrosFn, nivelPreferred, opts = {}) 
     // ================== Reuso/redibujo ==================
     if (layerPoligonos && layerPoligonos._nivel === nivel && typeof layerPoligonos.eachLayer === "function") {
       const ok = repaintExistingLayer(layerPoligonos, styleFn);
-      crearLeyenda(maxVal || 1, nivel === 'departamento' ? 'Ventas por departamento' : 'Ventas por ciudad');
+      crearLeyenda(maxVal || 1, nivel === 'departamento' ? 'Ventas por departamento (M COP)' : 'Ventas por ciudad (M COP)');
       if (ok) {
         if (signal.aborted) return;
         try { const b = layerPoligonos.getBounds?.(); if (b) mapa.fitBounds(b.pad(0.1), { animate: true }); } catch {}
@@ -435,7 +495,7 @@ export async function renderCoropletas(getFiltrosFn, nivelPreferred, opts = {}) 
         if (nivel === 'ciudad') mapa.setZoom(Math.max(mapa.getZoom(), 8), { animate: false });
       }
     } catch {}
-    crearLeyenda(maxVal || 1, nivel === 'departamento' ? 'Ventas por departamento' : 'Ventas por ciudad');
+    crearLeyenda(maxVal || 1, nivel === 'departamento' ? 'Ventas por departamento (M COP)' : 'Ventas por ciudad (M COP)');
 
   } catch (e) {
     if (e.name !== "AbortError") console.error("Mapa error:", e);

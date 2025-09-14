@@ -16,25 +16,24 @@ const loaders = {
 // Nivel de mapa (persistido en window para que filters.js lo consulte/actualice)
 window.nivelMapa = "departamento";
 
-/** Decide el nivel por filtros y pinta con loader */
+/** Decide el nivel por filtros y pinta TODO (mapa + KPIs + serie) */
 async function onChangeAll() {
   const filtros = getFiltros();
   const nivel = filtros.ciudad ? "ciudad" : "departamento";
-  // guarda el nivel actual para consistencia con botones
   window.nivelMapa = nivel;
+
+  await cargarKPIs(getFiltros);
   await cambiarNivelConLoader(nivel, getFiltros);
+  await cargarGrafico(getFiltros, loaders);
 }
 
 /** Cambia el nivel explícitamente (botones) y pinta con loader */
 async function setNivel(nivel) {
   const nuevo = (nivel === "ciudad") ? "ciudad" : "departamento";
-  if (window.nivelMapa === nuevo) {
-    // mismo nivel: repinta con loader para refrescar datos actuales
-    await cambiarNivelConLoader(nuevo, getFiltros);
-    return;
-  }
   window.nivelMapa = nuevo;
+  await cargarKPIs(getFiltros);
   await cambiarNivelConLoader(nuevo, getFiltros);
+  await cargarGrafico(getFiltros, loaders);
 }
 
 /** Botones “extra” de la UI */
@@ -47,10 +46,9 @@ function wireBotonesExtras() {
   if (btnKPIs)  btnKPIs.addEventListener("click", () => cargarKPIs(getFiltros));
   if (btnSerie) btnSerie.addEventListener("click", () => cargarGrafico(getFiltros, loaders));
 
-  // Si quieres refrescar TODO al ir a la pestaña de mapa:
   if (btnMapa)  btnMapa.addEventListener("click", async () => {
     await cargarKPIs(getFiltros);
-    await cambiarNivelConLoader(window.nivelMapa, getFiltros); // ← antes llamabas renderCoropletas directo
+    await cambiarNivelConLoader(window.nivelMapa, getFiltros);
     await cargarGrafico(getFiltros, loaders);
   });
 
@@ -74,7 +72,17 @@ async function bootstrap() {
   wireBotonesExtras();
 
   // Primer render con el nivel por defecto
+  await cargarKPIs(getFiltros);
   await cambiarNivelConLoader(window.nivelMapa, getFiltros);
+  await cargarGrafico(getFiltros, loaders);
 }
 
 window.addEventListener("load", bootstrap);
+
+/* ==== Exponer a window para los handlers inline del HTML (aplicar()) ==== */
+window.cargarKPIs   = () => cargarKPIs(getFiltros);
+window.cargarGrafico = () => cargarGrafico(getFiltros, loaders);
+// Si en el HTML llamas renderCoropletas(), expón un wrapper que use el flujo nuevo:
+window.renderCoropletas = async () => cambiarNivelConLoader(window.nivelMapa, getFiltros);
+// También expón setNivel si lo necesitas en botones inline:
+window.changeNivel = setNivel;
