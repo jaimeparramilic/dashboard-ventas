@@ -90,7 +90,7 @@ function buildFiltroFn(q) {
    “Oficial” (para el mapa):
      - ciudad_oficial:       ciudad_geo | ciudad_oficial | city_official | adm2_name | nombre_mpio_oficial | geo_city_shapename
      - departamento_oficial: departamento_geo | departamento_oficial | dept_official | adm1_name | nombre_dpto_oficial | geo_dept_name
-     - shapeID (opcional):   shapeid | geo_shapeid
+     - shapeID (opcional):   shapeid | geo_shapeid | shape_id
 
    Si tu CSV es el que generé (ventas_a_ciudades_geo_mapping_final.csv) también funciona:
      - Usará geo_city_shapeName, geo_dept_name, geo_shapeID si existen.
@@ -154,7 +154,6 @@ function loadMappingCSVOnce() {
   const { headers, rows } = parseCSVFlexible(text);
 
   // Helpers para encontrar headers por alias
-  const has = (h) => headers.includes(canonBase(h));
   const findHeader = (aliasList) => aliasList.map(canonBase).find(h => headers.includes(h));
 
   // Fuente (ventas)
@@ -229,7 +228,11 @@ const OFFICIAL = loadMappingCSVOnce();
 const MAPA_CACHE = new Map();
 const MAPA_TTL = 5 * 60 * 1000; // 5 minutos
 function cacheKeyFromQuery(q) {
-  const allow = ['group_by','departamento','ciudad','macrocategoria','categoria','subcategoria','segmento','marca'];
+  const allow = [
+    'group_by','departamento','ciudad','macrocategoria','categoria','subcategoria','segmento','marca',
+    // claves para inversión (aceptamos alias)
+    'inv_meta','inv_google','inversion_meta','inversion_google','meta','google'
+  ];
   const obj = {};
   for (const k of allow) if (q[k]) obj[k] = String(q[k]);
   return 'mapa:' + JSON.stringify(obj);
@@ -258,7 +261,7 @@ router.get('/', async (req, res) => {
     // 4) Filtro
     const filtro = buildFiltroFn(req.query);
 
-    // 5) Agregación
+    // 5) Agregación base
     const aggDept = new Map();           // deptCanon -> total
     const aggCity = new Map();           // cityCanon__deptCanon -> total
 
@@ -274,6 +277,43 @@ router.get('/', async (req, res) => {
       } else {
         const key = `${cityCanon}__${deptCanon}`;
         aggCity.set(key, (aggCity.get(key) || 0) + (monto || 0));
+      }
+    }
+
+    // 5.1) Ajuste por inversión (desde query) distribuido proporcionalmente
+    const invMetaQ   = toNumberLoose(pick(req.query, ['inv_meta','inversion_meta','meta']) || 0);
+    const invGoogleQ = toNumberLoose(pick(req.query, ['inv_google','inversion_google','google']) || 0);
+    const invTotalQ  = (invMetaQ || 0) + (invGoogleQ || 0);
+
+    if (invTotalQ > 0) {
+      if (groupBy === 'departamento') {
+        let totalBase = 0;
+        for (const v of aggDept.values()) totalBase += (v || 0);
+
+        if (totalBase > 0) {
+          for (const [dCanon, base] of aggDept.entries()) {
+            const extra = invTotalQ * ((base || 0) / totalBase);
+            aggDept.set(dCanon, (base || 0) + extra);
+          }
+        } else {
+          // sin base: asigna a Bogotá como fallback
+          const k = BOGOTA_CANON;
+          aggDept.set(k, (aggDept.get(k) || 0) + invTotalQ);
+        }
+      } else {
+        let totalBase = 0;
+        for (const v of aggCity.values()) totalBase += (v || 0);
+
+        if (totalBase > 0) {
+          for (const [key, base] of aggCity.entries()) {
+            const extra = invTotalQ * ((base || 0) / totalBase);
+            aggCity.set(key, (base || 0) + extra);
+          }
+        } else {
+          // sin base: asigna a Bogotá D.C. ciudad como fallback
+          const key = `bogota__${BOGOTA_CANON}`;
+          aggCity.set(key, (aggCity.get(key) || 0) + invTotalQ);
+        }
       }
     }
 

@@ -59,8 +59,11 @@ export async function cachedFetch(url, opts = {}, ttlMs = 60_000) {
 }
 
 /* =================== Text/keys utils =================== */
-export const filtrosKeys = ["departamento","ciudad","macrocategoria","categoria","subcategoria","segmento","marca"];
-
+export const filtrosKeys = [
+  'departamento','ciudad',
+  'macrocategoria','categoria','subcategoria','segmento','marca',
+  'inv_meta','inv_google'   // ← NUEVO
+];
 export const normalize = (str) => {
   if (str === null || str === undefined) return "";
   return String(str)
