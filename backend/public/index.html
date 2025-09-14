@@ -13,122 +13,147 @@
 
   <style>
     :root{
-      --bg:#000; --card:#0f172a; --muted:#9ca3af; --border:#374151;
-    }
+  --bg:#000; --card:#0f172a; --muted:#9ca3af; --border:#374151; --txt:#fff;
+  --gap:12px; --radius:12px;
+  --shadow:0 8px 28px rgba(0,0,0,.45);
+  --shadow-soft:0 4px 18px rgba(0,0,0,.35);
+  --control-h:42px;                 /* alto táctil base móvil */
+  --fs-title:clamp(16px, 2.6vw, 20px);
+  --fs-kpi:clamp(18px, 4.2vw, 24px);
+  --fs-label:clamp(11px, 1.8vw, 13px);
+  --fs-body:clamp(13px, 2.4vw, 15px);
+}
 
-    body{ background:#000; color:#fff; font-family:'Segoe UI',system-ui,-apple-system,Arial,sans-serif; }
+html, body{ height:100%; }
+body{
+  background:var(--bg); color:var(--txt);
+  font-family:'Segoe UI',system-ui,-apple-system,Arial,sans-serif;
+  font-size:var(--fs-body);
+  -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+}
 
-    /* Header STICKY (no fixed) → no hace falta spacer ni JS */
-    .topbar{
-      position: sticky; top: 0; z-index: 1000;
-      background:#111; border-bottom:1px solid #222; padding:4px 0;
-    }
-    .brand img{ height:34px; }
-    .brand-title{ font-weight:800; font-size:1.25rem; margin:0 0 0 .5rem; }
+/* Header STICKY (no fixed) + safe area iOS */
+.topbar{
+  position: sticky; top: 0; z-index: 1000;
+  background:#111; border-bottom:1px solid #222; padding:4px 0;
+  padding-top: calc(4px + env(safe-area-inset-top));
+}
+.brand img{ height:34px; }
+.brand-title{ font-weight:800; font-size:var(--fs-title); margin:0 0 0 .5rem; }
 
-    /* Filtros */
-    .filters-wrap{ padding:6px 0 8px; }
-    .form-label{ font-size:.78rem; color:#cbd5e1; margin-bottom:4px; }
-    .form-select, .btn{
-      background:#1b1b1b; color:#fff; border:1px solid #3a3a3a;
-      font-size:.85rem; padding:.35rem .5rem; height:36px;
-    }
-    .btn-apply{ background:#fff; color:#000; font-weight:700; border:none; }
-    .btn-outline-light{ border-color:#666; color:#ddd; }
-    .btn-outline-light:hover{ background:#ddd; color:#111; }
+/* -------- Filtros (mobile-first) -------- */
+.filters-wrap{ padding:8px 0 6px; }
+.filters-wrap .row{ row-gap:10px; }  /* más aire entre campos en móvil */
+.form-label{ font-size:var(--fs-label); color:#cbd5e1; margin-bottom:4px; }
+.form-select, .btn{
+  background:#1b1b1b; color:#fff; border:1px solid #3a3a3a;
+  font-size:var(--fs-body); padding:.35rem .6rem; height:var(--control-h);
+  border-radius:10px;
+}
+.btn-apply{ background:#fff; color:#000; font-weight:700; border:none; }
+.btn-outline-light{ border-color:#666; color:#ddd; }
+.btn-outline-light:hover{ background:#ddd; color:#111; }
 
-    /* Toggle nivel */
-    .btn-seg{ background:#1f2937; color:#e5e7eb; border:1px solid #374151; font-weight:600; }
-    .btn-seg.active{ background:#fff; color:#111827; border-color:#fff; }
-    .btn-seg:not(.active):hover{ filter:brightness(1.08); }
+/* Toggle nivel */
+.btn-seg{ background:#1f2937; color:#e5e7eb; border:1px solid #374151; font-weight:600; }
+.btn-seg.active{ background:#fff; color:#111827; border-color:#fff; }
+.btn-seg:not(.active):hover{ filter:brightness(1.08); }
 
-    /* KPI cards */
-    /* --- HOTFIX KPIs visibles --- */
-    /* KPI cards — horizontales + scroll en móviles */
+/* -------- KPI cards — horizontales + carrusel móvil -------- */
 #kpiContainer{
-  /* fila horizontal con scroll si no cabe */
-  display:flex !important;
-  gap:12px;
-  align-items:stretch;
-  flex-wrap:nowrap;       /* una sola fila */
-  overflow-x:auto;        /* scroll horizontal */
-  -webkit-overflow-scrolling: touch;
-  padding: 6px 2px 8px;
-  position:relative;
-  z-index:5;
-  margin-top:12px !important;
-  margin-bottom:8px !important;
+  display:flex !important; gap:12px; align-items:stretch;
+  flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling: touch;
+  padding: 6px 2px 8px; position:relative; z-index:5;
+  margin-top:12px !important; margin-bottom:8px !important;
+  scroll-snap-type:x mandatory;
 }
-
-/* cada columna se comporta como “item” del carrusel */
 #kpiContainer > .col{
-  flex: 0 0 290px;        /* ancho fijo cómodo; ajusta si quieres */
-  min-width: 260px;
-  min-height: 88px;
+  flex: 0 0 82vw;                 /* ~80% del viewport en móvil */
+  min-width: 260px; min-height: 88px;
+  scroll-snap-align:start;
 }
-
-/* Card: layout horizontal (label izquierda, valor derecha) */
 .kpi-card{
-  background:#121826 !important;
-  border:1px solid #374151 !important;
-  border-radius:12px !important;
-  padding:12px 14px !important;
-  box-shadow:0 4px 18px rgba(0,0,0,.35) !important;
-
-  display:flex;                 /* ← clave para horizontal */
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
+  background:#121826 !important; border:1px solid #374151 !important;
+  border-radius:var(--radius) !important; padding:12px 14px !important;
+  box-shadow:var(--shadow-soft) !important;
+  display:flex; align-items:center; justify-content:space-between; gap:12px;
 }
-
-/* Texto dentro de la card */
 .kpi-card h6{
-  color:#9ca3af !important;
-  margin:0 !important;
-  font-size:.9rem !important;
-  text-transform:uppercase;
-  letter-spacing:.4px;
-  line-height:1.15;
-  white-space:nowrap;           /* evita salto del label */
+  color:#9ca3af !important; margin:0 !important; font-size:var(--fs-label) !important;
+  text-transform:uppercase; letter-spacing:.4px; line-height:1.15; white-space:nowrap;
 }
-
 .kpi-card p{
-  margin:0 !important;
-  font-weight:800 !important;
-  font-size:1.35rem !important;
-  line-height:1;
-  white-space:nowrap;           /* evita salto del valor */
+  margin:0 !important; font-weight:800 !important; font-size:var(--fs-kpi) !important;
+  line-height:1; white-space:nowrap;
 }
 
-/* En pantallas medianas y grandes, que aparezcan 3 “iguales” por fila sin scroll */
-@media (min-width: 992px){
-  #kpiContainer{
-    overflow-x:visible;
-    flex-wrap:wrap;             /* permite varias por fila */
-  }
-  #kpiContainer > .col{
-    flex: 1 1 calc((100% - 24px) / 3);   /* 3 columnas con gap */
-    min-width: 0;
-  }
+/* -------- Mapa -------- */
+#map{
+  height:58vh; /* móvil: deja espacio para KPIs/filtros */
+  border-radius:12px; border:1px solid var(--border);
+  background:#000; box-shadow:var(--shadow); margin-top:10px;
+  position:relative; z-index:0;
+}
+.poly-glow{ filter: drop-shadow(0 0 10px rgba(139,92,246,.35)); }
+
+/* Leaflet */
+#map, .leaflet-container{ overflow:visible !important; }
+.leaflet-control{ z-index:10000 !important; }
+.leaflet-bottom.leaflet-right{ right:10px; bottom:10px; }
+.leaflet-control-zoom a{ width:34px; height:34px; line-height:34px; }
+
+/* -------- Gráfica -------- */
+.card-time{
+  background:#111; border:1px solid #444; border-radius:12px; box-shadow:0 8px 28px rgba(0,0,0,.4);
+  margin-top:12px;
+}
+#chartVentas{ display:block; width:100% !important; height:280px !important; } /* móvil */
+canvas{ background:#111; border-radius:10px; padding:10px; width:100%; }
+
+/* -------- Accesibilidad / Motion -------- */
+@media (prefers-reduced-motion: reduce){
+  *{ animation: none !important; transition: none !important; }
 }
 
+/* ================== Breakpoints ================== */
 
-    /* Mapa */
-    #map{
-      height:72vh; border-radius:12px; border:1px solid var(--border);
-      background:#000; box-shadow:0 8px 28px rgba(0,0,0,.45); margin-top:10px;
-      position:relative; z-index:0;
-    }
-    .poly-glow{ filter: drop-shadow(0 0 10px rgba(139,92,246,.35)); }
+/* ≥ 576px (SM): 2 KPIs por fila, mapa/gráfica un poco más altos */
+@media (min-width:576px){
+  :root{ --control-h:44px; }
+  #kpiContainer{ overflow-x:visible; flex-wrap:wrap; }
+  #kpiContainer > .col{ flex: 1 1 calc((100% - var(--gap)) / 2); min-width: 0; }
+  #map{ height:62vh; }
+  #chartVentas{ height:320px !important; }
+}
 
-    /* Gráfica */
-    .card-time{ background:#111; border:1px solid #444; border-radius:12px; box-shadow:0 8px 28px rgba(0,0,0,.4); }
-    canvas{ background:#111; border-radius:10px; padding:10px; width:100%; }
+/* ≥ 768px (MD): controles más grandes y botones de nivel en una línea */
+@media (min-width:768px){
+  :root{ --control-h:46px; }
+  .form-select, .btn{ border-radius:12px; }
+  #map{ height:66vh; }
+  #chartVentas{ height:360px !important; }
+}
 
-    /* Leaflet */
-    #map, .leaflet-container{ overflow:visible !important; }
-    .leaflet-control{ z-index:10000 !important; }
-    .leaflet-bottom.leaflet-right{ right:14px; bottom:14px; }
+/* ≥ 992px (LG): 3 KPIs por fila, layout más “desktop” */
+@media (min-width:992px){
+  :root{ --gap:14px; }
+  #kpiContainer{ flex-wrap:wrap; gap:14px; }
+  #kpiContainer > .col{ flex: 1 1 calc((100% - (var(--gap)*2)) / 3); min-width:0; }
+  .kpi-card{ padding:14px 16px !important; }
+  #map{ height:72vh; }
+  #chartVentas{ height:400px !important; }
+}
+
+/* ≥ 1200px (XL): tipografías un poco más grandes en KPIs */
+@media (min-width:1200px){
+  .kpi-card p{ font-size: clamp(22px, 2vw, 26px) !important; letter-spacing:.2px; }
+}
+
+/* ≥ 1400px (XXL): listo para 4 KPIs si agregas una cuarta card */
+@media (min-width:1400px){
+  #kpiContainer > .col{ flex: 1 1 calc((100% - (var(--gap)*3)) / 4); }
+}
+
   </style>
 </head>
 
