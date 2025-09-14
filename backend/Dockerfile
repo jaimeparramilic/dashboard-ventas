@@ -1,9 +1,8 @@
 FROM node:20
 WORKDIR /app
 
-# Manifest primero para cache
 COPY package.json ./
-# COPY package-lock.json ./   # si tienes lockfile, descomenta
+# COPY package-lock.json ./   # descomenta si usas lockfile
 
 RUN if [ -f package-lock.json ]; then \
       npm ci --omit=dev --no-audit --no-fund; \
@@ -11,9 +10,12 @@ RUN if [ -f package-lock.json ]; then \
       npm install --only=production --no-audit --no-fund; \
     fi
 
-# Copia TODO el backend (incluye public/, routes/, data/, etc.)
+# Copiá todo el backend (public/, routes/, data/, etc.)
 COPY . .
 
+ENV NODE_ENV=production
 ENV PORT=8080
 EXPOSE 8080
-CMD ["node","index.js"]
+
+# ⬇️ Tu entrypoint real está en backend/
+CMD ["node","backend/index.js"]
