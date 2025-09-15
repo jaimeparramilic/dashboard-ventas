@@ -1,8 +1,9 @@
+# backend/Dockerfile
 FROM node:20
 WORKDIR /app
 
 COPY package.json ./
-# COPY package-lock.json ./   # descomenta si usas lockfile
+# COPY package-lock.json ./
 
 RUN if [ -f package-lock.json ]; then \
       npm ci --omit=dev --no-audit --no-fund; \
@@ -10,12 +11,12 @@ RUN if [ -f package-lock.json ]; then \
       npm install --only=production --no-audit --no-fund; \
     fi
 
-# Copiá todo el backend (public/, routes/, data/, etc.)
+# Copia todo el backend (public/, routes/, data/, index.js, etc.)
 COPY . .
 
 ENV NODE_ENV=production
 ENV PORT=8080
 EXPOSE 8080
 
-# ⬇️ Tu entrypoint real está en backend/
-CMD ["node","backend/index.js"]
+# ✅ Con contexto backend/, el entry está en /app/index.js
+CMD ["node","index.js"]
