@@ -155,6 +155,13 @@ canvas{ background:#111; border-radius:10px; padding:10px; width:100%; }
   #kpiContainer > .col{ flex: 1 1 calc((100% - (var(--gap)*3)) / 4); }
 }
 
+/* Deja que el dedo desplace la página sobre el mapa (Leaflet pone touch-action:none) */
+#map.leaflet-container,
+#map .leaflet-container{
+  touch-action: pan-y !important; /* desplaza vertical; evita “agarre” agresivo del mapa */
+}
+
+
   </style>
 </head>
 
@@ -308,5 +315,47 @@ canvas{ background:#111; border-radius:10px; padding:10px; width:100%; }
       navigator.serviceWorker.register('/sw.js').catch(console.error);
     }
   </script>
+
+  <script>
+  // Evita que la rueda haga zoom del mapa a menos que se mantenga Ctrl/⌘.
+  // Deja pasar el evento al navegador para que SIGA scrolleando la página.
+  window.addEventListener('load', () => {
+    const el = document.getElementById('map');
+    if (!el) return;
+
+    // Intercepta la rueda: no hacemos preventDefault, así la página sigue desplazándose.
+    el.addEventListener('wheel', (e) => {
+      if (!(e.ctrlKey || e.metaKey)) {
+        e.stopPropagation(); // evita que Leaflet reciba la rueda (no zoom)
+      }
+    }, { passive: true });
+
+    // (Opcional) un “hint” para el usuario
+    const hint = document.createElement('div');
+    hint.textContent = 'Mantén Ctrl (o ⌘) y usa la rueda para hacer zoom';
+    Object.assign(hint.style, {
+      position: 'absolute', left: '50%', bottom: '12px', transform: 'translateX(-50%)',
+      background: 'rgba(17,24,39,.92)', color: '#fff', padding: '6px 10px',
+      borderRadius: '10px', fontSize: '12px', lineHeight: 1.2, pointerEvents: 'none',
+      opacity: '0', transition: 'opacity 150ms ease', zIndex: '10000'
+    });
+    // El #map ya es position:relative en tu CSS; si no, forzamos:
+    const mapWrap = document.getElementById('map');
+    if (getComputedStyle(mapWrap).position === 'static') mapWrap.style.position = 'relative';
+    mapWrap.appendChild(hint);
+
+    let hideTO;
+    el.addEventListener('wheel', (e) => {
+      if (!(e.ctrlKey || e.metaKey)) {
+        hint.style.opacity = '1';
+        clearTimeout(hideTO);
+        hideTO = setTimeout(() => { hint.style.opacity = '0'; }, 1200);
+      } else {
+        hint.style.opacity = '0';
+      }
+    }, { passive: true });
+  });
+</script>
+
 </body>
 </html>

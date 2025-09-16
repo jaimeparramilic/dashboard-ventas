@@ -165,8 +165,44 @@ export function initMapaSiNecesario() {
   mapa = L.map("map", {
     minZoom: 4, zoom: 5, center: [4.6, -74.1],
     zoomControl: true, preferCanvas: true, zoomAnimation: false, fadeAnimation: false,
-    inertia: true, wheelDebounceTime: 30, wheelPxPerZoomLevel: 120
+    inertia: true, wheelDebounceTime: 30, wheelPxPerZoomLevel: 120,
+    // ⬇️ clave: la rueda y el doble clic NO hacen zoom por defecto
+    scrollWheelZoom: false,
+    doubleClickZoom: false
   });
+
+  // === Bloquea la rueda excepto si el usuario mantiene Ctrl/⌘ ===
+  // Usamos CAPTURE + stopImmediatePropagation para que Leaflet no intercepte el wheel.
+  {
+    const container = mapa.getContainer();
+
+    // Garantiza que el contenedor permita scroll vertical de la página en móvil
+    container.style.touchAction = 'pan-y';
+
+    // Evita doble registro si hay HMR/reloads
+    if (container._wheelGate) {
+      container.removeEventListener('wheel', container._wheelGate, { capture: true });
+    }
+
+    const onWheel = (e) => {
+      if (e.ctrlKey || e.metaKey) {
+        // 👉 Con Ctrl/⌘: sí queremos ZOOM del mapa y NO scroll de la página
+        if (!mapa.scrollWheelZoom.enabled()) mapa.scrollWheelZoom.enable();
+        e.stopImmediatePropagation(); // que no llegue a los handlers de Leaflet
+        e.preventDefault();           // bloquea el scroll de la página
+        clearTimeout(onWheel._offTO);
+        onWheel._offTO = setTimeout(() => mapa.scrollWheelZoom.disable(), 300);
+      } else {
+        // 👉 Sin Ctrl/⌘: NO queremos zoom del mapa, SÍ queremos scroll de la página
+        mapa.scrollWheelZoom.disable();
+        e.stopImmediatePropagation(); // Leaflet no ve la rueda
+        // ¡OJO! NO hacemos preventDefault, así la página sigue scrolleando.
+      }
+    };
+
+    container._wheelGate = onWheel;
+    container.addEventListener('wheel', onWheel, { passive: false, capture: true });
+  }
 
   canvasRenderer = L.canvas({ padding: 0.5 });
 
@@ -504,3 +540,4 @@ export async function renderCoropletas(getFiltrosFn, nivelPreferred, opts = {}) 
     aborts.mapa = null;
   }
 }
+
